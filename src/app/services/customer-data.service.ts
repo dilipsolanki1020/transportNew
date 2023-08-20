@@ -32,7 +32,7 @@ export class CustomerDataService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
   });
-    const url = `https://6652-103-151-185-76.ngrok.io/addorder`; // Adjust the URL for submitting data
+    const url = `https://154a-103-151-185-76.ngrok.io/addorder`; // Adjust the URL for submitting data
     return this.http.post(url, data,{headers});
     // return of({ success: true, message: 'Data submitted successfully' });
   }
