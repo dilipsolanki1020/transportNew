@@ -11,6 +11,7 @@ import { ScheduleOrderComponent } from './components/load-creator/schedule-order
 import { VerifyDeliveryComponent } from './components/load-scheduler/verify-delivery/verify-delivery.component';
 import { TrackOrderComponent } from './components/track-order/track-order.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,6 +29,8 @@ const routes: Routes = [
       { path: 'manage-customers', component: ManageCustomersComponent },
       { path: 'schedule-order', component: ScheduleOrderComponent },
       { path: 'manage-drivers', component: ManageDriversComponent },
+      { path: 'manage-order', component: ManageOrderComponent },
+      
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
