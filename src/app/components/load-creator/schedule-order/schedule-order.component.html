@@ -1,1 +1,40 @@
 <p>schedule-order works!</p>
+<div>
+    <h2>Delivery Plan</h2>
+  
+    <label for="vehicleSelect">Select Vehicle:</label>
+    <select id="vehicleSelect" [(ngModel)]="selectedVehicleId" (change)="onVehicleChange()">
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">{{ vehicle.vehicleNumber }}</option>
+    </select>
+  
+    <div *ngIf="selectedVehicle">
+        <h3>Vehicle Details</h3>
+        <p>Driver: {{ selectedVehicle.vehicleDriverName }}</p>
+        <p>Contact: {{ selectedVehicle.vehicleDriverContact }}</p>
+        <p>Capacity: {{ selectedVehicle.vehicleCapacity }}</p>
+  
+        <h3>Assigned Orders</h3>
+        <ul>
+          <!-- <li *ngFor="let order of selectedCityOrders">{{ order.orderId }} - {{ order.orderWeight }} kg</li> -->
+        </ul>
+    </div>
+  
+    <h3>Cities and Orders</h3>
+    <ul>
+        <li *ngFor="let city of cities" (click)="onCitySelect(city)">
+            {{ city.cityName }} - {{ city.cityTotalOrders }} orders, {{ city.cityTotalWeight }} kg
+          </li>
+    </ul>
+  
+    <div *ngIf="selectedCity">
+      <h4>Orders for {{ selectedCity.cityName }}</h4>
+      <ul>
+        <li *ngFor="let order of selectedCityOrders" (click)="toggleOrderSelection(order)">
+          {{ order.orderId }} - {{ order.orderWeight }} kg
+          <input type="checkbox" [(ngModel)]="order.selected">
+        </li>
+      </ul>
+      <button (click)="assignSelectedOrders()">Assign Selected Orders</button>
+    </div>
+  </div>
+  
