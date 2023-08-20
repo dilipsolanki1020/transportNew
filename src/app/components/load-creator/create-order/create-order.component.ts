@@ -9,12 +9,7 @@ import { CustomerDataService } from 'src/app/services/customer-data.service';
 export class CreateOrderComponent implements OnInit {
   @ViewChild('orderForm')
   orderForm!: NgForm; 
-  // formData: any = {
-  //   customer: {},
-  //   receiver: {},
-  //   consignment: {}
-  //   // Add more properties as needed
-  // };
+
   selectedCustomerAddress: string = '';
   isNewCustomerSelected: boolean = false;
   customers: any[] = [];
@@ -24,6 +19,8 @@ export class CreateOrderComponent implements OnInit {
   selectedCustomerContact: string = '';
   selectedReciverAddress: string =''
   selectedReciverContact: string =''
+  selectedCustomerName: string = ''
+  selectedReciverName: string = ''
   isnewReciverSelected: boolean = false;
   consignmentTitle: string = '';
   consignmentWeight: string = '';
@@ -32,6 +29,8 @@ export class CreateOrderComponent implements OnInit {
   consignmentLength: string = '';
   consignmentHeight: string = '';
   consignmentwidth: string = '';
+  city: string = '';
+
   constructor(private customerData : CustomerDataService){}
   ngOnInit(): void {
     this.fetchCustomers();
@@ -48,23 +47,6 @@ export class CreateOrderComponent implements OnInit {
     });
   }
 
-  // onCustomerSelected(customerId: number): void {
-  //   this.selectedCustomer = this.customers.find(customer => customer.id === customerId);
-  //   this.fetchReceiversForCustomer(customerId);
-  //   this.selectedReceiver = null; // Reset selected receiver when customer changes
-  // }
-  // onReceiverSelected(receiverId: number): void {
-  //   this.selectedReceiver = this.receivers.find(receiver => receiver.id === receiverId);
-  // }
-
-  // onCustomerSelected(event: Event): void {
-  //   const customerId = (event.target as HTMLSelectElement).value;
-  //   if (customerId) {
-  //     this.selectedCustomer = this.customers.find(customer => customer.id === +customerId);
-  //     this.fetchReceiversForCustomer(+customerId);
-  //     this.selectedReceiver = null;
-  //   }
-  // }
 
   onCustomerSelected(event: Event): void {
     const customerId = (event.target as HTMLSelectElement).value;
@@ -73,6 +55,7 @@ export class CreateOrderComponent implements OnInit {
       if (customerId === 'new') {
         this.selectedCustomer = null;
         this.selectedCustomerAddress = '';
+        this.selectedCustomerName = '';
         this.isNewCustomerSelected = true;
         this.selectedReceiver = null;
         this.selectedCustomerContact =''
@@ -81,6 +64,7 @@ export class CreateOrderComponent implements OnInit {
         this.fetchReceiversForCustomer(+customerId);
         this.selectedReceiver = null;
         this.isNewCustomerSelected = false;
+        this.selectedCustomerName = this.selectedCustomer?.name;
         this.selectedCustomerAddress = this.selectedCustomer?.address || '';
         this.selectedCustomerContact = this.selectedCustomer?.contactNumber;
         
@@ -97,11 +81,12 @@ export class CreateOrderComponent implements OnInit {
         this.selectedReciverAddress ='';
         this.selectedReciverContact =''
         this.isnewReciverSelected = true;
-        
+        this.selectedReciverName = '';
       }
       else{
       this.selectedReceiver = this.receivers.find(receiver => receiver.id === +receiverId);
       this.isnewReciverSelected = false;
+      this.selectedReciverName = this.selectedReceiver?.name
       this.selectedReciverAddress = this.selectedReceiver?.address || " ";
       this.selectedReciverContact = this.selectedReceiver?.contactNumber || " " ;
       }
@@ -109,13 +94,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
-    // this.formData.customer = this.selectedCustomer;
-    // this.formData.receiver = this.selectedReceiver;
-    // // Populate other formData properties as needed
-    
-    // // Convert formData to JSON and send it to the API
-    // const jsonData = JSON.stringify(this.formData);
-    // console.log('json data',jsonData)
+
     if (this.orderForm.valid) {
       const formData = {
         customerName: this.selectedCustomer.name,
@@ -125,27 +104,22 @@ export class CreateOrderComponent implements OnInit {
         receiverName: this.selectedReceiver.name,
         receiverAddress: this.selectedReciverAddress,
         reciverContact: this.selectedReciverContact,
-        // city: this.selectedReceiver.city[0],
+        city: this.city,
         title: this.consignmentTitle,
         weight: this.consignmentWeight,
-        // dimensions: this.consignmentDimensions,
         length: this.consignmentLength,
         width: this.consignmentwidth,
         height:this.consignmentHeight,
         quantity: this.consignmentQuantity
-        // ... other field values ...
         
       };
-      
-      // console.log('Form Data:', formData); 
-      const jsonData = JSON.stringify(formData);
+
+    const jsonData = JSON.stringify(formData);
     console.log("before sending to api ",jsonData)
     this.customerData.sendDataToApi(formData).subscribe(response => {
-      // Handle API response as needed
       console.log('api response',response)
     });
     }
-    // Print the JSON object to console or process as needed
     
   }
 }
