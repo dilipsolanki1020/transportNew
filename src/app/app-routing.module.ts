@@ -20,14 +20,15 @@ const routes: Routes = [
   
   // Load Creator Routes
   {
-    path: 'load-creator',
+    path: 'dashboard',
+    component: DashboardComponent,
     // canActivate: [AuthGuard], // Add authentication guard if needed
     children: [
       { path: 'create-order', component: CreateOrderComponent },
       { path: 'manage-customers', component: ManageCustomersComponent },
       { path: 'schedule-order', component: ScheduleOrderComponent },
       { path: 'manage-drivers', component: ManageDriversComponent },
-      { path: '', redirectTo: 'create-order', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
   
@@ -53,14 +54,14 @@ const routes: Routes = [
   },
   
   // Admin Routes
-  {
-    path: 'admin',
-    // canActivate: [AuthGuard],
-    children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    ]
-  },
+  // {
+  //   path: 'admin',
+  //   // canActivate: [AuthGuard],
+  //   children: [
+  //     { path: 'dashboard', component: DashboardComponent },
+  //     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  //   ]
+  // },
   
   // Fallback for invalid routes
   { path: '**', redirectTo: 'home' }
