@@ -1,97 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import { SchedularService } from 'src/app/services/schedular.service';
+import { Component } from '@angular/core';
+import { SchedularService, City, Driver, Order } from 'src/app/services/schedular.service';
+
 @Component({
   selector: 'app-schedule-order',
   templateUrl: './schedule-order.component.html',
   styleUrls: ['./schedule-order.component.css']
 })
-export class ScheduleOrderComponent implements OnInit {
-  drivers!: any[];
-  cities!: any[];
-  selectedDriver: any;
-  selectedCity: any;
-  selectedOrders: any[] = [];
-  ordersForSelectedCity: any[] = [];
-  selectedDriverId: any;
-
-  constructor(public dataService: SchedularService) { }
-
-  ngOnInit() {
-    this.drivers = this.dataService.getDrivers();
-    this.cities = this.dataService.getCities();
-  }
-
-
-  onDriverSelected(): void {
-    if (this.selectedDriverId) {
-      
-      const selectedDriver = this.drivers.find(driver => driver.vehicleId == this.selectedDriverId);
-      this.selectedDriver = selectedDriver;
-      console.log(selectedDriver);
-      if (selectedDriver) {
-        const assignedOrderIds = selectedDriver.assignedOrders;
-        this.selectedOrders = this.dataService.getOrdersByIds(assignedOrderIds);
-      }
-    }
-  }
+export class ScheduleOrderComponent {
+  cities: City[] = [];
+  vehicles: Driver[] = [];
+  selectedCity: City | undefined;
+  selectedVehicle: Driver | undefined;
+  assignedOrder: Order | undefined;
+  ordersForSelectedCity: Order[] = [];
+  assignedOrders!: Order[];
+  selectedVehicle1: Driver | undefined;
+  selectedOrders: Order[] = [];
   
+  // assignedOrder: Order | undefined;
+  constructor(public dataService: SchedularService) {
+    this.cities = this.dataService.getCities();
+    this.vehicles = this.dataService.getDrivers();
+    
+  }
 
   onCitySelected(): void {
-    if (this.selectedCity) {
-      this.ordersForSelectedCity = this.dataService.getOrdersForCity(this.selectedCity);
-    }
+    this.selectedVehicle = undefined;
+    this.assignedOrder = undefined;
+    let id:any = this.selectedCity
+    console.log("cty selected",this.selectedCity)
+    // Fetch orders for the selected city
+    this.ordersForSelectedCity = this.dataService.getOrdersForCity(id);
+    console.log(this.ordersForSelectedCity)
   }
 
+  onVehicleSelected(): void {
+    // Fetch vehicle details
+    // this.selectedVehicle1 = this.selectedVehicle;
+    this.assignedOrder = undefined;
+    let id: any =  this.selectedVehicle ;
+    const selectedVehicle = this.vehicles.find(vehicle => vehicle.vehicleId == id);
+    console.log("vehicle selected",selectedVehicle)
+    // if (selectedVehicle) {
+    //   this.selectedVehicle = selectedVehicle;
+    //   // Fetch assigned order for the selected vehicle
+    //   this.assignedOrder = this.dataService.getOrdersByIds(selectedVehicle.assignedOrders)[0];
+    // }
 
+    if (selectedVehicle) {
+      this.selectedVehicle = selectedVehicle;
+      // Fetch assigned orders for the selected vehicle
+      this.assignedOrders = this.dataService.getOrdersByIds(selectedVehicle.assignedOrders);
+    }
+  }
   
+
+  getCityName(cityId: number): string {
+    const city = this.cities.find(city => city.cityId === cityId);
+    return city ? city.cityName : '';
+  }
+
 
   assignOrdersToVehicle(): void {
-    console.log("inside assign",this.ordersForSelectedCity)
-    if (this.selectedDriver && this.selectedOrders.length > 0) {
-      const selectedCheckedOrders = this.selectedOrders.filter(order => order.selected);
-      console.log("inside assign selectedCheckedOrders ",selectedCheckedOrders,this.ordersForSelectedCity)
-      if (selectedCheckedOrders.length > 0) {
-        const selectedOrderIds = selectedCheckedOrders.map(order => order.orderId);
-        
-        console.log("Before assignment:", this.selectedDriver);
-        console.log(selectedOrderIds);
-        
-        this.dataService.setAssignedOrders(this.selectedDriver.vehicleId, selectedOrderIds);
+    // this.selectedOrders = this.ordersForSelectedCity;
+
     
-        // Update the selected orders for the selected driver
-        this.selectedDriver.assignedOrders = selectedOrderIds;
-        
-        console.log("After assignment:", this.selectedDriver);
-      }
+    console.log("length",this.selectedOrders,JSON.stringify(this.ordersForSelectedCity))
+    if (this.selectedVehicle  ) {
+      console.log("inside assign order")
+      const selectedOrderIds = this.ordersForSelectedCity
+    .filter(order => order.selected === true)
+    .map(order => order.orderId);
+    
+      console.log(selectedOrderIds)
+      // Update assigned orders for the selected vehicle
+      this.dataService.setAssignedOrders(this.selectedVehicle.vehicleId, selectedOrderIds);
+      
+      // Remove selected orders from ordersForSelectedCity
+      this.ordersForSelectedCity = this.ordersForSelectedCity.filter(order => !selectedOrderIds.includes(order.orderId));
   
-      this.selectedDriver = null;
-      this.ordersForSelectedCity = [];
+      // Clear selectedOrders array
+      this.selectedOrders = [];
     }
   }
 
-  printDetails(): void {
-    if (this.selectedDriver) {
-      const driverDetails = `Driver Name: ${this.selectedDriver.vehicleDriverName}\n`
-                          + `Driver Contact: ${this.selectedDriver.vehicleDriverContact}`;
-  
-      const assignedOrders = this.selectedOrders.map(order => `Order ${order.orderId} - Status: ${order.orderStatus}`).join('\n');
-  
-      const contentToPrint = `${driverDetails}\n\nAssigned Orders:\n${assignedOrders}`;
-  
-      // Create a temporary hidden element to hold the content
-      const printWindow = window.open('', '_blank');
-  
-      if (printWindow) { // Check if the window was opened successfully
-        printWindow.document.write(`<pre>${contentToPrint}</pre>`);
-        printWindow.document.close();
-  
-        // Print the window
-        printWindow.print();
-      } else {
-        console.error("Failed to open print window. Please allow pop-ups and try again.");
-      }
-    }
-  }
   
   
+ 
 }

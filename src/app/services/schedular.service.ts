@@ -1,133 +1,91 @@
 import { Injectable } from '@angular/core';
 
-interface Driver {
-  vehicleId: number;
-  vehicleNumber: string;
-  vehicleDriverName: string;
-  vehicleDriverContact: string;
-  vehicleCapacity: string;
-  assignedOrders: Order[]; // Explicitly type assignedOrders property
+export class City {
+  constructor(
+    public cityId: number,
+    public cityName: string,
+    public cityTotalOrders: number,
+    public cityTotalWeight: number
+  ) {}
 }
 
-interface Order {
-  orderId: number;
-  cityId: number;
-  orderWeight: string;
-  orderStatus: string;
+export class Driver {
+  constructor(
+    public vehicleId: number,
+    public vehicleNumber: string,
+    public vehicleCapacity: string,
+    public assignedOrders: number[]
+  ) {}
+}
+
+export class Order {
+  constructor(
+    public orderId: number,
+    public cityId: number,
+    public orderWeight: string,
+    public orderStatus: string,
+    public selected: boolean = false // Default to false
+  ) {}
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class SchedularService {
-  private drivers: any[] = [
-    {
-      vehicleId: 1,
-      vehicleNumber: 'MH-12-DM-6373',
-      vehicleDriverName: 'John Alan',
-      vehicleDriverContact: '555-123-4567',
-      vehicleCapacity: '3000',
-      assignedOrders: [1, 3] // Sample assigned orders' IDs
-    },
-    {
-      vehicleId: 2,
-      vehicleNumber: 'KA-19-DY-6971',
-      vehicleDriverName: 'Brad Musk',
-      vehicleDriverContact: '565-183-4787',
-      vehicleCapacity: '5000',
-      assignedOrders: [2, 4] // Sample assigned orders' IDs
-    }
-    // ... (other drivers data)
+
+
+  private drivers: Driver[] = [
+    new Driver(1, 'MH-12-DM-6373', '3000', [1, 3]),
+    new Driver(2, 'KA-19-DY-6971', '5000', [2, 4]),
+    // Add more drivers as needed
   ];
 
-  private cities: any[] = [
-    {
-      cityId: 1,
-      cityName: 'Mumbai',
-      cityTotalOrders: '56',
-      cityTotalWeight: '5000',
-    },
-    {
-      cityId: 2,
-      cityName: 'Solapur',
-      cityTotalOrders: '56',
-      cityTotalWeight: '5000',
-    }
-    // ... (other cities data)
+  private orders: Order[] = [
+    new Order(1, 1, '200', 'Pending'),
+    new Order(2, 1, '350', 'Delivered'),
+    new Order(3, 2, '150', 'Shipped'),
+    new Order(4, 2, '500', 'Pending'),
+    new Order(5, 1, '150', 'Shipped'),
+    new Order(6, 3, '500', 'Pending'),
+    // Add more orders as needed
   ];
 
-
-  private orders: any[] = [
-    {
-      orderId: 1,
-      cityId: 1,
-      orderWeight: '200',
-      orderStatus: 'Pending',
-    },
-    {
-      orderId: 2,
-      cityId: 1,
-      orderWeight: '350',
-      orderStatus: 'Delivered',
-    },
-    {
-      orderId: 3,
-      cityId: 2,
-      orderWeight: '150',
-      orderStatus: 'Shipped',
-    },
-    {
-      orderId: 4,
-      cityId: 2,
-      orderWeight: '500',
-      orderStatus: 'Pending',
-    },
-    {
-      orderId: 5,
-      cityId: 1,
-      orderWeight: '500',
-      orderStatus: 'Pending',
-    },
-    // ... (other orders data)
+  private cities: City[] = [
+    new City(1, 'City A', 10, 1000),
+    new City(2, 'City B', 15, 1500),
+    // Add more cities as needed
   ];
 
+  constructor() { }
 
-
-
-  constructor() { 
-
-  }
-  
-getDrivers(): any[] {
-    return this.drivers;
-  }
-
-  getCities(): any[] {
+  getCities(): City[] {
     return this.cities;
   }
 
-  getOrders(): any[] {
+  getDrivers(): Driver[] {
+    return this.drivers;
+  }
+
+  getOrders(): Order[] {
     return this.orders;
   }
 
-  getOrdersForCity(cityId: number): any[] {
+  getOrdersForCity(cityId: number): Order[] {
     return this.orders.filter(order => order.cityId == cityId);
   }
 
-  setAssignedOrders(driverId: number, orderIds: number[]): void {
-    console.log('setAssignedOrders called with driverId:', driverId, 'orderIds:', orderIds);
-    const driver = this.drivers.find(driver => driver.vehicleId === driverId);
-    if (driver) {
-      console.log('Driver found:', driver);
-      driver.assignedOrders = orderIds;
-      console.log('Driver after assignment:', driver);
-    }
+  getOrdersByIds(orderIds: number[]): Order[] {
+    return this.orders.filter(order => orderIds.includes(order.orderId));
   }
 
-  getOrdersByIds(orderIds: number[]): any[] {
-    if (!orderIds || !Array.isArray(orderIds)) {
-      return []; // Return an empty array if orderIds is not valid
+  setAssignedOrders(driverId: number, orderIds: number[]): void {
+    const driver = this.drivers.find(driver => driver.vehicleId == driverId);
+    if (driver) {
+      orderIds.forEach(order =>{
+        console.log("assigning order ",order)
+        driver.assignedOrders.push(order)
+      })
+      // driver.assignedOrders.push(orderIds.forEach());
     }
-    return this.orders.filter(order => orderIds.includes(order.orderId));
   }
 }
