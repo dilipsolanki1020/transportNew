@@ -1,5 +1,7 @@
-<div class="order-form create-order-container">
-    <form (ngSubmit)="onSubmit(orderForm)" #orderForm="ngForm">
+<div class="order-form-container">
+  <form (ngSubmit)="onSubmit(orderForm)" #orderForm="ngForm" class="order-form">
+      <!-- <div class="row jumbotron box8"> 
+        <div class="col-sm-12 mx-t3 mb-4"> -->
       <div class="form-group">
         <label for="customerSelect">Customer </label>
         <select id="customerSelect" class="form-control" (change)="onCustomerSelected($event)">
@@ -83,57 +85,9 @@
         <input type="number" id="consignment-quantity" name="consignment-quantity" [(ngModel)]="consignmentQuantity">
       </div>
       <!-- Other form fields here -->
-  
+    <!-- </div>
+    </div> -->
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 
-
-
-  <!-- <div class="confirmation-modal" [ngClass]="{'open': isConfirmationModalOpen}">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Confirm Order Details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="closeConfirmationModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Value</th>
-          </tr>
-          <tr>
-            <td>Customer Name:</td>
-            <td>{{ selectedCustomerName }}</td>
-          </tr>
-          <tr>
-            <td>Customer Address:</td>
-            <td>{{ selectedCustomer?.address }}</td>
-          </tr>
-          <tr>
-            <td>Customer Name:</td>
-            <td>{{ selectedCustomerName }}</td>
-          </tr>
-          <tr>
-            <td>Customer Address:</td>
-            <td>{{ selectedCustomer?.address }}</td>
-          </tr>
-          <tr>
-            <td>Customer Name:</td>
-            <td>{{ selectedCustomerName }}</td>
-          </tr>
-          <tr>
-            <td>Customer Address:</td>
-            <td>{{ selectedCustomer?.address }}</td>
-          </tr>
-          
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeConfirmationModal()">Edit</button>
-        <button type="button" class="btn btn-primary" (click)="createOrder()">Create Order</button>
-      </div>
-    </div>
-  </div>   -->
