@@ -15,6 +15,8 @@ import { MarkReceivedComponent } from './components/forwarder/mark-received/mark
 import { MarkDeliveredComponent } from './components/forwarder/mark-delivered/mark-delivered.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DashboardMenuComponent } from './components/admin/dashboard-menu/dashboard-menu.component';
+import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { HttpClientModule } from '@angular/common/http';
     VerifyDeliveryComponent,
     MarkReceivedComponent,
     MarkDeliveredComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardMenuComponent,
+    ManageOrderComponent
   ],
   imports: [
     BrowserModule,

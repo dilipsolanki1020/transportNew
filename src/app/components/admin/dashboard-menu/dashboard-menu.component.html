@@ -1,0 +1,8 @@
+<div class="top-bar">
+    <div class="tab" (click)="selectTab(1)" [ngClass]="{ 'active': selectedTab === 1 }"  [routerLink]="['/dashboard']" >DashBoard</div>
+    <div class="tab" (click)="selectTab(2)" [ngClass]="{ 'active': selectedTab === 2 }"  [routerLink]="['/dashboard/create-order']" >Create Order</div>
+    <div class="tab" (click)="selectTab(3)" [ngClass]="{ 'active': selectedTab === 3 }"  [routerLink]="['/dashboard/manage-order']" >Manage Orders</div>
+    <div class="tab" (click)="selectTab(4)" [ngClass]="{ 'active': selectedTab === 4 }"  [routerLink]="['/dashboard/schedule-order']" >Schedule Orders</div>
+    <div class="tab" (click)="selectTab(5)" [ngClass]="{ 'active': selectedTab === 5 }"  [routerLink]="['/dashboard/verify-order']" >Verify Orders</div>
+    <div class="tab" (click)="selectTab(6)" [ngClass]="{ 'active': selectedTab === 6 }"  [routerLink]="['/dashboard/manage-customers']" >Manage Customers</div>
+</div>

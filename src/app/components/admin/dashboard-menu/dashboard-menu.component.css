@@ -1,0 +1,53 @@
+/* top-bar-menu.component.css */
+
+.top-bar {
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 8px;
+  }
+  
+  .tab:hover {
+    background-color: #d3d3d3;
+  }
+  
+  .active {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  .tab-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Add a subtle bounce animation on active tab */
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-6px);
+    }
+    60% {
+      transform: translateY(-4px);
+    }
+  }
+  .active.animate-bounce {
+    animation: bounce 1s infinite;
+  }
+  

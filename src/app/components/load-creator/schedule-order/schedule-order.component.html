@@ -1,1 +1,59 @@
-<p>schedule-order works!</p>
+<div>
+  <h1>Delivery Plan</h1>
+  <div class="dropdown">
+    <label for="citySelect">Select City:</label>
+    <select id="citySelect" [(ngModel)]="selectedCity" (change)="onCitySelected()">
+      <option value="" disabled selected>Select City</option>
+      <option *ngFor="let city of cities" [value]="city.cityId">{{ city.cityName }}</option>
+    </select>
+  </div>
+  <div *ngIf="selectedCity">
+    <h2>City Details</h2>
+    <!-- Display city details here -->
+  </div>
+  <div class="dropdown">
+    <label for="vehicleSelect">Select Vehicle:</label>
+    <select id="vehicleSelect" [(ngModel)]="selectedVehicle" (change)="onVehicleSelected()">
+      <option value="" disabled selected>Select Vehicle</option>
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">{{ vehicle.vehicleNumber }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="selectedVehicle">
+    <h2>Vehicle Details</h2>
+    <p><strong>Vehicle Id:</strong> {{ selectedVehicle.vehicleId }}</p>
+    <p><strong>Vehicle Number:</strong> {{ selectedVehicle.vehicleNumber }}</p>
+    <p><strong>Capacity:</strong> {{ selectedVehicle.vehicleCapacity }}</p>
+  </div>
+
+  <div *ngIf="assignedOrders && assignedOrders.length > 0">
+    <h2>Assigned Orders</h2>
+    <ul>
+      <li *ngFor="let order of assignedOrders">
+        <strong>Order ID:</strong> {{ order.orderId }}
+        <strong>City Name:</strong> {{ getCityName(order.cityId) }}
+        <strong>Order Weight:</strong> {{ order.orderWeight }}
+      </li>
+    </ul>
+  </div>
+    <!-- <p><strong>Order ID:</strong> {{ assignedOrder.orderId }}</p>
+    <p><strong>City ID:</strong> {{ assignedOrder.cityId }}</p>
+    <p><strong>Order Weight:</strong> {{ assignedOrder.orderWeight }}</p>
+    <p><strong>Order Status:</strong> {{ assignedOrder.orderStatus }}</p>
+  </div> -->
+  
+  <div *ngIf="ordersForSelectedCity.length > 0">
+    <h2>Orders for Selected City</h2>
+    <ul>
+      <li *ngFor="let order of ordersForSelectedCity">
+        <label>
+          <input type="checkbox" [(ngModel)]="order.selected" />
+          Order ID: {{ order.orderId }} - Weight: {{ order.orderWeight }} - Status: {{ order.orderStatus }}
+        </label>
+      </li>
+    </ul>
+  </div>
+  
+  <button (click)="assignOrdersToVehicle()" >Assign Selected Orders</button>
+
+</div>
