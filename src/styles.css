@@ -1,14 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/*
- * Made by Erik Terwan
- * 24th of November 2015
- * MIT License
- *
- *
- * If you are thinking of using this in
- * production code, beware of the browser
- * prefixes.
- */
+
 
  body
  {
@@ -16,8 +6,8 @@
    padding: 0;
    
    /* make it look decent enough */
-   background: #cae8eec5;
-   color: #cdcdcd;
+   background: #2f7c8bc5;
+   /* color: #cdcdcd; */
    font-family: "Avenir Next", "Avenir", sans-serif;
  }
  
