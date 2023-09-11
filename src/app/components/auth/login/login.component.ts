@@ -15,9 +15,18 @@ export class LoginComponent {
   password:string = '';
 constructor (private auth :AuthService){}
 
-  onSubmit(form: NgForm): void {
-    console.log("inside form")
-    // console.log(this.password)
-    this.auth.login(this.username,this.password)
-  }
+onSubmit(form: NgForm): void {
+  console.log("inside form");
+  this.auth.login(this.username, this.password)
+  // .subscribe((loggedIn: boolean) => {
+  //   if (loggedIn) {
+  //     // Handle successful login, e.g., navigate to a new page.
+  //     console.log("Login successful");
+  //   } else {
+  //     // Handle login failure, e.g., show an error message.
+  //     console.log("Login failed");
+  //   }
+  // });
+}
+
 }
