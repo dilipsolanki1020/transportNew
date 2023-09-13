@@ -44,8 +44,9 @@ export class CreateOrderComponent implements OnInit {
     this.fetchCustomers();
   }
   fetchCustomers(): void {
-    this.customerData.getCustomers().subscribe((data: any) => {
-      this.customers = data;
+    this.customerData.getCustomers().subscribe((response: any) => {
+      console.log(response)
+      // this.customers = data;
     });
   }
 

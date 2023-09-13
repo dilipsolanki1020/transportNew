@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map } from 'rxjs';
 // import { Route } from '@angular/router';
 declare var $:any;
@@ -7,32 +7,39 @@ declare var $:any;
   providedIn: 'root'
 })
 export class AuthService {
-
+  private apiUrl = 'https://transportsystemapi.azurewebsites.net';
   constructor(private http: HttpClient) { }
 
-  login(username:string,password:string){
 
-    console.log(username,password)
-    const body = {
-      username: username,
-      password: password
-    };
-    
-    this.http.post('https://transportsystemapi.azurewebsites.net/login', body)
-      .subscribe(
-        (response: any) => {
-          console.log('login success', response);
-          return true;
-        },
-        (err) => {
-          console.log('error', err);
-          return false;
-        }
-      );
-
-
+  login(username: string, password: string): Observable<any> {
+    const body = { username, password };
+    return this.http.post(`${this.apiUrl}/login`, body);
 
   }
+
+  // login(username:string,password:string){
+
+  //   console.log(username,password)
+  //   const body = {
+  //     username: username,
+  //     password: password
+  //   };
+    
+  //   this.http.post('https://transportsystemapi.azurewebsites.net/login', body)
+  //     .subscribe(
+  //       (response: any) => {
+  //         console.log('login success', response);
+  //         return true;
+  //       },
+  //       (err) => {
+  //         console.log('error', err);
+  //         return false;
+  //       }
+  //     );
+
+
+
+  // }
  
 //   login(username: string, password: string) {
 //     const rurl = 'https://transportsystemapi.azurewebsites.net/login';
