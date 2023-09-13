@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
-import { HttpClient ,HttpHeaders} from '@angular/common/http';
+import { HttpClient ,HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { GlobalDataService } from './global-data.service';
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerDataService {
 
-  private apiUrl = 'your_api_endpoint_here';
+  // private apiUrl = 'your_api_endpoint_here';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private globalstore:GlobalDataService) {}
 
   getCustomers(): Observable<any> {
-    console.log('get customer called')
-    // const url = `${this.apiUrl}/customers`; // Adjust the URL for fetching customers
-    // return this.http.get(url);
-    return of(sampleCustomers);
+
+    const params = new HttpParams()
+      .set('userId', this.globalstore.userID)
+     
+
+    return this.http.get(`https://transportsystemapi.azurewebsites.net/list/customer/${this.globalstore.userID}`, { params });
+    
+  //   console.log('get customer called')
+  //   const headers = new HttpHeaders({
+  //     'Content-Type': 'application/json'
+  // });
+  //   const url = `https://transportsystemapi.azurewebsites.net/add/order`; // Adjust the URL for submitting data
+  //   return this.http.post(url, {headers});
+
+    // return of(sampleCustomers);
   }
 
   getReceivers(customerId: number): Observable<any> {
