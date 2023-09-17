@@ -17,6 +17,8 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardMenuComponent } from './components/admin/dashboard-menu/dashboard-menu.component';
 import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
+// import { NgxBarcode6Module } from 'ngx-barcode6';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { ManageOrderComponent } from './components/orders/manage-order/manage-or
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    // NgxBarcode6Module
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,6 +16,8 @@ export class ScheduleOrderComponent {
   assignedOrders!: Order[];
   selectedVehicle1: Driver | undefined;
   selectedOrders: Order[] = [];
+  cityData: City | undefined;
+  selectedVehicleData: Driver | undefined;
   
   // assignedOrder: Order | undefined;
   constructor(public dataService: SchedularService) {
@@ -28,31 +30,72 @@ export class ScheduleOrderComponent {
     this.selectedVehicle = undefined;
     this.assignedOrder = undefined;
     let id:any = this.selectedCity
-    console.log("cty selected",this.selectedCity)
-    // Fetch orders for the selected city
+    this.cityData = this.cities.find(city => city.cityId == id)
+   
     this.ordersForSelectedCity = this.dataService.getOrdersForCity(id);
-    console.log(this.ordersForSelectedCity)
   }
 
   onVehicleSelected(): void {
-    // Fetch vehicle details
-    // this.selectedVehicle1 = this.selectedVehicle;
-    this.assignedOrder = undefined;
     let id: any =  this.selectedVehicle ;
-    const selectedVehicle = this.vehicles.find(vehicle => vehicle.vehicleId == id);
-    console.log("vehicle selected",selectedVehicle)
-    // if (selectedVehicle) {
-    //   this.selectedVehicle = selectedVehicle;
-    //   // Fetch assigned order for the selected vehicle
-    //   this.assignedOrder = this.dataService.getOrdersByIds(selectedVehicle.assignedOrders)[0];
-    // }
-
-    if (selectedVehicle) {
-      this.selectedVehicle = selectedVehicle;
-      // Fetch assigned orders for the selected vehicle
-      this.assignedOrders = this.dataService.getOrdersByIds(selectedVehicle.assignedOrders);
+    console.log("on vs",id)
+    this.selectedVehicleData = this.vehicles.find(vehicle => vehicle.vehicleId == id);
+    if (this.selectedVehicleData) {
+      this.assignedOrders = this.dataService.getOrdersByIds(this.selectedVehicleData.assignedOrders);
+      this.ordersForSelectedCity.forEach(order =>{
+         order.selected = this.assignedOrders.includes(order);
+      })
     }
   }
+
+
+  // splitOrder(order: Order): void {
+  //   const userProvidedQuantity = order['splitQuantity']; // Access splitQuantity with square brackets
+  //   const totalOrderQuantity = order.quantity;
+  
+  //   if (userProvidedQuantity === undefined || userProvidedQuantity <= 0 || userProvidedQuantity >= totalOrderQuantity) {
+  //     // Invalid quantity or undefined, do not split the order
+  //     return;
+  //   }
+  
+  //   // Check if selectedVehicleData is defined
+  //   if (this.selectedVehicleData) {
+  //     // Calculate the number of sub-orders required
+  //     const numberOfSubOrders = Math.ceil(totalOrderQuantity / userProvidedQuantity);
+  
+  //     // Split the order into sub-orders
+  //     const subOrders: Order[] = [];
+  //     let remainingQuantity = totalOrderQuantity;
+  
+  //     for (let i = 0; i < numberOfSubOrders; i++) {
+  //       const subOrderQuantity = Math.min(userProvidedQuantity, remainingQuantity);
+  //       const subOrder: Order = {
+  //         ...order,
+  //         quantity: subOrderQuantity,
+  //       };
+  
+  //       // Create a new Order ID or generate a unique identifier
+  //       // Assign this subOrder to a specific vehicle using setAssignedOrders
+  //       this.dataService.setAssignedOrders(this.selectedVehicleData.vehicleId, [subOrder.orderId]);
+  
+  //       subOrders.push(subOrder);
+  //       remainingQuantity -= subOrderQuantity;
+  //     }
+  
+  //     // Update the list of orders with the sub-orders
+  //     this.dataService.addOrders(subOrders);
+  //   }
+  // }
+
+  
+  // onVehicleSelected(): void {
+  //   if (this.selectedVehicleData?.vehicleId) {
+  //     this.assignedOrders = this.dataService.getOrdersByIds(this.selectedVehicleData.assignedOrders);
+  //     this.ordersForSelectedCity.forEach(order => {
+  //       order.selected = this.assignedOrders.some(assignedOrder => assignedOrder.orderId === order.orderId);
+  //     });
+  //   }
+  // }
+  
   
 
   getCityName(cityId: number): string {
@@ -61,30 +104,39 @@ export class ScheduleOrderComponent {
   }
 
 
-  assignOrdersToVehicle(): void {
-    // this.selectedOrders = this.ordersForSelectedCity;
-
-    
-    console.log("length",this.selectedOrders,JSON.stringify(this.ordersForSelectedCity))
-    if (this.selectedVehicle  ) {
-      console.log("inside assign order")
-      const selectedOrderIds = this.ordersForSelectedCity
-    .filter(order => order.selected === true)
-    .map(order => order.orderId);
-    
-      console.log(selectedOrderIds)
-      // Update assigned orders for the selected vehicle
-      this.dataService.setAssignedOrders(this.selectedVehicle.vehicleId, selectedOrderIds);
-      
-      // Remove selected orders from ordersForSelectedCity
-      this.ordersForSelectedCity = this.ordersForSelectedCity.filter(order => !selectedOrderIds.includes(order.orderId));
-  
-      // Clear selectedOrders array
-      this.selectedOrders = [];
-    }
-  }
-
-  
   
  
+  assignOrdersToVehicle(): void {
+    const selectedOrderIds = this.ordersForSelectedCity
+      .filter(order => order.selected)
+      .map(order => order.orderId);
+  
+    if (selectedOrderIds.length > 0 && this.selectedVehicleData?.vehicleId) {
+      // Get the currently assigned order IDs for the selected vehicle
+      const assignedOrderIds = this.selectedVehicleData.assignedOrders || [];
+  
+      // Identify newly selected orders and orders to be unassigned
+      const ordersToAssign = selectedOrderIds.filter(orderId => !assignedOrderIds.includes(orderId));
+      const ordersToUnassign = assignedOrderIds.filter(orderId => !selectedOrderIds.includes(orderId));
+  
+      // Assign newly selected orders to the vehicle
+      this.dataService.setAssignedOrders(Number(this.selectedVehicleData.vehicleId), ordersToAssign);
+  
+      // Unassign orders that were deselected
+      this.dataService.unassignOrdersFromVehicle(Number(this.selectedVehicleData.vehicleId), ordersToUnassign);
+  
+      // Update the list of selected orders
+      this.ordersForSelectedCity = this.ordersForSelectedCity.map(order => {
+        if (ordersToAssign.includes(order.orderId)) {
+          order.selected = true;
+        } else if (ordersToUnassign.includes(order.orderId)) {
+          order.selected = false;
+        }
+        return order;
+      });
+  
+      this.onVehicleSelected();
+    }
+  }
+  
 }

@@ -13,10 +13,9 @@ export class DashboardMenuComponent implements OnInit{
    }
   //  selectedTab =  this.globalservice.selectedTab;
   ngOnInit(): void {
-    // this.selectedTab = this.globalservice.selectedTab;
-    // this.selectTab(this.selectedTab)
-    this.router.navigate(['/dashboard'])
-    // this.selectTab(this.globalservice.selectedTab)
+
+    this.router.navigate(['/dashboard/schedule-order'])
+
   }
   selectTab(tabNumber: number) {
     this.selectedTab = tabNumber;

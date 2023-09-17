@@ -1,4 +1,8 @@
 <p>dashboard !</p>
 <app-dashboard-menu></app-dashboard-menu>
 <br>
+<!-- <div>
+    <input type="text" [(ngModel)]="barcodeValue" (input)="updateBarcodeValue($event)" placeholder="Enter Barcode Value">
+    <ngx-barcode6 [bc-value]="barcodeValue" [bc-format]="'CODE128'" [bc-display-value]="true"></ngx-barcode6>
+</div> -->
 <router-outlet></router-outlet>
