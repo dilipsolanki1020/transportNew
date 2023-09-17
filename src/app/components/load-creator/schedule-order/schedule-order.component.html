@@ -1,5 +1,6 @@
-<div>
+<div class="delivery-plan-container">
   <h1>Delivery Plan</h1>
+
   <div class="dropdown">
     <label for="citySelect">Select City:</label>
     <select id="citySelect" [(ngModel)]="selectedCity" (change)="onCitySelected()">
@@ -7,61 +8,59 @@
       <option *ngFor="let city of cities" [value]="city.cityId">{{ city.cityName }}</option>
     </select>
   </div>
-  <div *ngIf="selectedCity && cityData">
+
+  <div *ngIf="selectedCity && cityData" class="city-details">
     <h2>City Details</h2>
-    <p ><strong>Name:</strong> {{ cityData.cityName }}</p>
-    <p><strong>Total Orders:</strong> {{ cityData.cityTotalOrders }}</p>
-    <p><strong>Total Weights</strong> {{ cityData.cityTotalWeight }}</p>
+    <div class="city-info">
+      <p><strong>Name:</strong> {{ cityData.cityName }}</p>
+      <p><strong>Total Orders:</strong> {{ cityData.cityTotalOrders }}</p>
+      <p><strong>Total Weight:</strong> {{ cityData.cityTotalWeight }}</p>
+    </div>
   </div>
+
   <div class="dropdown">
     <label for="vehicleSelect">Select Vehicle:</label>
     <select id="vehicleSelect" [(ngModel)]="selectedVehicle" (change)="onVehicleSelected()">
-      <option value="" >Select Vehicle</option>
+      <option value="">Select Vehicle</option>
       <option *ngFor="let vehicle of vehicles" [value]="vehicle.vehicleId">{{ vehicle.vehicleNumber }}</option>
     </select>
   </div>
 
-  <div *ngIf="selectedVehicle && selectedVehicleData">
+  <div *ngIf="selectedVehicle && selectedVehicleData" class="vehicle-details">
     <h2>Vehicle Details</h2>
-    <p ><strong>Driver Name:</strong> {{ selectedVehicleData.driverName }}</p>
-    <p ><strong>Driver Conatct:</strong> {{ selectedVehicleData.driverConatct }}</p>
-    <p><strong>Vehicle Number:</strong> {{ selectedVehicleData.vehicleNumber }}</p>
-    <p><strong>Capacity:</strong> {{ selectedVehicleData.vehicleCapacity }}</p>
+    <div class="vehicle-info">
+      <p><strong>Driver Name:</strong> {{ selectedVehicleData.driverName }}</p>
+      <p><strong>Driver Contact:</strong> {{ selectedVehicleData.driverConatct }}</p>
+      <p><strong>Vehicle Number:</strong> {{ selectedVehicleData.vehicleNumber }}</p>
+      <p><strong>Capacity:</strong> {{ selectedVehicleData.vehicleCapacity }}</p>
+    </div>
   </div>
 
-  <div *ngIf="assignedOrders && assignedOrders.length > 0">
+  <div *ngIf="assignedOrders && assignedOrders.length > 0" class="assigned-orders">
     <h2>Assigned Orders</h2>
     <ul>
-      <li *ngFor="let order of assignedOrders">
-        <strong>Order ID:</strong> {{ order.orderId }}
-        <strong>City Name:</strong> {{ getCityName(order.cityId) }}
-        <strong>Order Weight:</strong> {{ order.orderWeight }}
+      <li *ngFor="let order of assignedOrders" class="assigned-order">
+        <span><strong>Order ID:</strong> {{ order.orderId }}</span>
+        <span><strong>City Name:</strong> {{ getCityName(order.cityId) }}</span>
+        <span><strong>Order Weight:</strong> {{ order.orderWeight }}</span>
       </li>
     </ul>
   </div>
- 
-  
-  <div *ngIf="ordersForSelectedCity.length > 0">
+
+  <div *ngIf="ordersForSelectedCity.length > 0" class="orders-for-selected-city">
     <h2>Orders for Selected City</h2>
-   <!-- schedule-order.component.html -->
-
-<!-- ... Existing code ... -->
-
-<div *ngIf="ordersForSelectedCity.length > 0">
-  <h2>Orders for Selected City</h2>
-  <ul>
-    <li *ngFor="let order of ordersForSelectedCity">
-      <input type="checkbox" [(ngModel)]="order.selected" />
-      <label>
-        Order ID: {{ order.orderId }} - Weight: {{ order.orderWeight }} - Status: {{ order.orderStatus }}
-      </label>
-    </li>
-  </ul>
+    <ul>
+      <li *ngFor="let order of ordersForSelectedCity" class="order-item">
+        <input type="checkbox" [(ngModel)]="order.selected" />
+        <label>
+          Order ID: {{ order.orderId }} - Weight: {{ order.orderWeight }} - Status: {{ order.orderStatus }}
+        </label>
+      </li>
+    </ul>
+    <button (click)="assignOrdersToVehicle()" class="assign-button">Assign Selected Orders</button>
+  </div>
 </div>
 
-<button (click)="assignOrdersToVehicle()" >Assign Selected Orders</button>
-
-</div>
 
 <!-- 
 --------------------split order code if req in future--------------------------

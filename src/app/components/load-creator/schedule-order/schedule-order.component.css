@@ -1,77 +1,132 @@
 /* Styling for the overall container */
-div {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Styling for headings */
-  h1, h2, h3 {
-    color: #333;
-  }
-  
-  /* Styling for form elements */
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-  }
-  
-  select, input[type="checkbox"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Styling for buttons */
-  button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  /* Styling for lists */
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  /* Styling for list items */
-  li {
-    margin-bottom: 4px;
-  }
-  
-  /* Styling for checkbox labels */
-  label {
-    display: block;
-    margin-bottom: 4px;
-  }
-  
-  /* Styling for the container holding vehicle details */
-  div[ngIf="selectedDriver"] {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Styling for the container holding orders for selected city */
-  div[ngIf="ordersForSelectedCity.length > 0"] {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ccc;
-  }
-  
+.delivery-plan-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for headings */
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Styling for form elements */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+select, input[type="checkbox"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styling for buttons */
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Styling for lists */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Styling for list items */
+li {
+  margin-bottom: 4px;
+}
+
+/* Styling for checkbox labels */
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Styling for the container holding city details */
+.city-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+/* Styling for the container holding vehicle details */
+.vehicle-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+/* Styling for the container holding assigned orders */
+.assigned-orders {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+/* Styling for order items */
+.assigned-order {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling for the container holding orders for selected city */
+.orders-for-selected-city {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+
+/* Styling for order items with checkboxes */
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.order-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styling for checkbox inputs */
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Styling for order details */
+.order-details {
+  flex-grow: 1;
+}
+
+/* Styling for the "Assign Selected Orders" button */
+.assign-button {
+  background-color: #28a745;
+}
+
+/* Styling for the "Assign Selected Orders" button on hover */
+.assign-button:hover {
+  background-color: #218838;
+}

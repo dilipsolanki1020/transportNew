@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SchedularService, City, Driver, Order } from 'src/app/services/schedular.service';
-
+// import { PdfService } from 'src/app/services/pdf-service.service';
 @Component({
   selector: 'app-schedule-order',
   templateUrl: './schedule-order.component.html',
@@ -20,7 +20,9 @@ export class ScheduleOrderComponent {
   selectedVehicleData: Driver | undefined;
   
   // assignedOrder: Order | undefined;
-  constructor(public dataService: SchedularService) {
+  constructor(public dataService: SchedularService,
+    // public pdfService : PdfService
+    ) {
     this.cities = this.dataService.getCities();
     this.vehicles = this.dataService.getDrivers();
     
@@ -47,6 +49,27 @@ export class ScheduleOrderComponent {
     }
   }
 
+  unassignOrdersFromVehicle(): void {
+    const unassignedOrderIds = this.ordersForSelectedCity
+      .filter(order => !order.selected)
+      .map(order => order.orderId);
+  
+    if (unassignedOrderIds.length > 0 && this.selectedVehicleData?.vehicleId) {
+      this.dataService.unassignOrdersFromVehicle(Number(this.selectedVehicleData.vehicleId), unassignedOrderIds);
+      this.onVehicleSelected();
+    }
+  }
+
+  // getCityIdByOrderId(orderId: number): number | undefined {
+  //   const order = this.orders.find(order => order.orderId === orderId);
+  //   return order ? order.cityId : undefined;
+  // }
+  
+  // getOrderWeightById(orderId: number): string | undefined {
+  //   const order = this.orders.find(order => order.orderId === orderId);
+  //   return order ? order.orderWeight : undefined;
+  // }
+  
 
   // splitOrder(order: Order): void {
   //   const userProvidedQuantity = order['splitQuantity']; // Access splitQuantity with square brackets
@@ -104,8 +127,6 @@ export class ScheduleOrderComponent {
   }
 
 
-  
- 
   assignOrdersToVehicle(): void {
     const selectedOrderIds = this.ordersForSelectedCity
       .filter(order => order.selected)
@@ -136,6 +157,8 @@ export class ScheduleOrderComponent {
       });
   
       this.onVehicleSelected();
+      //to generate pdf
+      // this.pdfService.generatePdf(this.assignedOrders, this.selectedVehicleData);
     }
   }
   
