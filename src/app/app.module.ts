@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardMenuComponent } from './components/admin/dashboard-menu/dashboard-menu.component';
 import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
 // import { NgxBarcode6Module } from 'ngx-barcode6';
-
+import { SharedModule } from './shared/shared.module';
+import { shareReplay } from 'rxjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { ManageOrderComponent } from './components/orders/manage-order/manage-or
     ManageOrderComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
