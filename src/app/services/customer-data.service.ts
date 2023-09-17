@@ -18,7 +18,7 @@ export class CustomerDataService {
       .set('userId', this.globalstore.userID)
      
 
-    return this.http.get(`https://transportsystemapi.azurewebsites.net/list/customer/${this.globalstore.userID}`, { params });
+    // return this.http.get(`https://transportsystemapi.azurewebsites.net/list/customer/${this.globalstore.userID}`, { params });
     
   //   console.log('get customer called')
   //   const headers = new HttpHeaders({
@@ -27,7 +27,7 @@ export class CustomerDataService {
   //   const url = `https://transportsystemapi.azurewebsites.net/add/order`; // Adjust the URL for submitting data
   //   return this.http.post(url, {headers});
 
-    // return of(sampleCustomers);
+    return of(sampleCustomers);
   }
 
   getReceivers(customerId: number): Observable<any> {

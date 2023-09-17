@@ -1,110 +1,110 @@
 <div class="order-form-container">
   <form (ngSubmit)="onSubmit(orderForm)" #orderForm="ngForm" class="order-form">
-      <!-- <div class="row jumbotron box8"> 
-        <div class="col-sm-12 mx-t3 mb-4"> -->
-      <div class="form-group">
-        <label for="customerSelect">Customer </label>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="customerSelect">Customer:</label>
         <select id="customerSelect" class="form-control" (change)="onCustomerSelected($event)">
-          <option value="">Select Customer</option>
+          <option value="">Choose Customer</option>
           <option value="new">New Customer</option>
           <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.name }}</option>
         </select>
       </div>
-
-      <div class="form-group" >
+      <div class="form-group col-md-6">
         <label for="name">Customer Name:</label>
-        <input type="text" id="name" name="name" [(ngModel)]="selectedCustomerName"  >
+        <input type="text" id="customerName" name="customerName" [(ngModel)]="selectedCustomerName">
+        <i class="fas fa-lock"></i>
       </div>
+    </div>
 
-      <div class="form-group" >
-        <label for="address">Customer Address:</label>
-        <input type="text" id="address" name="address" [(ngModel)]="selectedCustomerAddress"  >
-      </div>
-      <div class="form-group" >
-        <label for="contact">Customer Contact Number:</label>
-        <input type="text" id="contact" name="contact" [(ngModel)]="selectedCustomerContact" >
-      </div>
-  
-      <div class="form-group" >
-        <label for="receiverSelect">Receiver</label>
-        <select id="receiverSelect" class="form-control" (change)="onReceiverSelected($event)">
-          <option value="">Select Receiver</option>
-          <option value="new">New Reciver</option>
-          <option *ngFor="let receiver of receivers" [value]="receiver.id">{{ receiver.name }}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="address">Customer Address:</label>
+      <input type="text" id="customerAddress" name="customerAddress" [(ngModel)]="selectedCustomerAddress">
+    </div>
 
-      <div class="form-group" >
-        <label for="Rname">Receiver Name:</label>
-        <input type="text" id="name" name="name" [(ngModel)]="selectedReciverName"  [readonly]="isNewCustomerSelected">
-      </div>
-      
-      <div class="form-group" >
-        <label for="Raddress">Receiver Address:</label>
-        <input type="text" id="address" name="address" [(ngModel)]="selectedReciverAddress"  [readonly]="isNewCustomerSelected">
-      </div>
-      <div class="form-group" >
-        <label for="Rcontact">Receiver Contact Number:</label>
-        <input type="text" id="contact" name="contact" [(ngModel)]="selectedReciverContact" [readonly]="isNewCustomerSelected">
-      </div>
-  
-      <div class="form-group" *ngIf="selectedReceiver">
-        <label for="receiverCitySelect">Receiver City</label>
-        <select id="receiverCitySelect" class="form-control" [(ngModel)]="city" name="city">
-          <option value="">Select City</option>
-          <option *ngFor="let city of selectedReceiver.cities">{{ city }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="consignment-title">Consignment Title:</label>
-        <input type="text" id="consignment-title" name="consignment-title" [(ngModel)]="consignmentTitle">
-      </div>
+    <div class="form-group">
+      <label for="contact">Customer Contact Number:</label>
+      <input type="text" id="customerContact" name="customerContact" [(ngModel)]="selectedCustomerContact">
+    </div>
 
-      <div class="form-group">
-        <label for="consignment-weight">Consignment Weight:</label>
-        <input type="text" id="consignment-weight" name="consignment-weight" [(ngModel)]="consignmentWeight">
-      </div>
-      <div class="form-group">
-        <label for="consignment-dimensions">Consignment Dimensions:</label>
-      <br>
-        <table>
-            <tr>
-                <th>Height</th>
-                <th>Length</th>
-                <th>Width</th>
-            </tr>
-            <td><input type="number" id="consignment-dimensions" name="consignment-dimensions" [(ngModel)]="consignmentLength"></td>
-            <td><input type="number" id="consignment-dimensions" name="consignment-dimensions" [(ngModel)]="consignmentHeight"></td>
-            <td><input type="number" id="consignment-dimensions" name="consignment-dimensions" [(ngModel)]="consignmentwidth"></td>
-            <tr>
-            </tr>
-        </table>
-      </div>
-      <div class="form-group">
-        <label for="consignment-quantity">Consignment Quantity:</label>
-        <input type="number" id="consignment-quantity" name="consignment-quantity" [(ngModel)]="consignmentQuantity">
-      </div>
-      <!-- Other form fields here -->
-    <!-- </div>
-    </div> -->
+    <div class="form-group">
+      <label for="receiverSelect">Receiver:</label>
+      <select id="receiverSelect" class="form-control" (change)="onReceiverSelected($event)">
+        <option value="">Choose Receiver</option>
+        <option value="new">New Receiver</option>
+        <option *ngFor="let receiver of receivers" [value]="receiver.id">{{ receiver.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="receiverName">Receiver Name:</label>
+      <input type="text" id="receiverName" name="receiverName" [(ngModel)]="selectedReceiverName" [readonly]="isNewCustomerSelected">
+    </div>
+
+    <div class="form-group">
+      <label for="receiverAddress">Receiver Address:</label>
+      <input type="text" id="receiverAddress" name="receiverAddress" [(ngModel)]="selectedReceiverAddress" [readonly]="isNewCustomerSelected">
+    </div>
+
+    <div class="form-group">
+      <label for="receiverContact">Receiver Contact Number:</label>
+      <input type="text" id="receiverContact" name="receiverContact" [(ngModel)]="selectedReceiverContact" [readonly]="isNewCustomerSelected">
+    </div>
+
+    <div class="form-group" *ngIf="selectedReceiver">
+      <label for="receiverCitySelect">Receiver City:</label>
+      <select id="receiverCitySelect" class="form-control" [(ngModel)]="city" name="city">
+        <option value="">Select City</option>
+        <option *ngFor="let city of selectedReceiver.cities">{{ city }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="consignmentTitle">Consignment Title:</label>
+      <input type="text" id="consignmentTitle" name="consignmentTitle" [(ngModel)]="consignmentTitle">
+    </div>
+
+    <div class="form-group">
+      <label for="consignmentWeight">Consignment Weight:</label>
+      <input type="text" id="consignmentWeight" name="consignmentWeight" [(ngModel)]="consignmentWeight">
+    </div>
+
+    <div class="form-group">
+      <label for="consignmentDimensions">Consignment Dimensions:</label>
+      <table>
+        <tr>
+          <th>Height</th>
+          <th>Length</th>
+          <th>Width</th>
+        </tr>
+        <tr>
+          <td><input type="number" id="consignmentHeight" name="consignmentHeight" [(ngModel)]="consignmentHeight"></td>
+          <td><input type="number" id="consignmentLength" name="consignmentLength" [(ngModel)]="consignmentLength"></td>
+          <td><input type="number" id="consignmentWidth" name="consignmentWidth" [(ngModel)]="consignmentwidth"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="form-group">
+      <label for="consignmentQuantity">Consignment Quantity:</label>
+      <input type="number" id="consignmentQuantity" name="consignmentQuantity" [(ngModel)]="consignmentQuantity">
+    </div>
+
     <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">Submit</button>
-    </form>
-  </div>
+  </form>
+</div>
 
-  <div class="modal" [ngClass]="{'show': isModalOpen}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Creating Order</h4>
-        </div>
-        <div class="modal-body">
-          <p>Creating order...</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary" (click)="closeModal()">OK</button>
-        </div>
+<div class="modal" [ngClass]="{'show': isModalOpen}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Creating Order</h4>
+      </div>
+      <div class="modal-body">
+        <p>Creating order...</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="closeModal()">OK</button>
       </div>
     </div>
   </div>
-  
-
+</div>

@@ -17,10 +17,10 @@ export class CreateOrderComponent implements OnInit {
   selectedCustomer: any = null;
   selectedReceiver: any = null;
   selectedCustomerContact: string = '';
-  selectedReciverAddress: string =''
-  selectedReciverContact: string =''
+  selectedReceiverAddress: string =''
+  selectedReceiverContact: string =''
   selectedCustomerName: string = ''
-  selectedReciverName: string = ''
+  selectedReceiverName: string = ''
   isnewReciverSelected: boolean = false;
   consignmentTitle: string = '';
   consignmentWeight: string = '';
@@ -87,17 +87,17 @@ export class CreateOrderComponent implements OnInit {
     if (receiverId) {
       if (receiverId === 'new') {
         this.selectedReceiver = null;
-        this.selectedReciverAddress ='';
-        this.selectedReciverContact =''
+        this.selectedReceiverAddress ='';
+        this.selectedReceiverContact =''
         this.isnewReciverSelected = true;
-        this.selectedReciverName = '';
+        this.selectedReceiverName = '';
       }
       else{
       this.selectedReceiver = this.receivers.find(receiver => receiver.id === +receiverId);
       this.isnewReciverSelected = false;
-      this.selectedReciverName = this.selectedReceiver?.name
-      this.selectedReciverAddress = this.selectedReceiver?.address || " ";
-      this.selectedReciverContact = this.selectedReceiver?.contactNumber || " " ;
+      this.selectedReceiverName = this.selectedReceiver?.name
+      this.selectedReceiverAddress = this.selectedReceiver?.address || " ";
+      this.selectedReceiverContact = this.selectedReceiver?.contactNumber || " " ;
       }
     }
   }
