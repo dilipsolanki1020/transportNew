@@ -337,3 +337,73 @@
 //     doc.save('assigned_orders_report.pdf');
 //   }
 // }
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class PdfService {
+  generateHtmlPdf(assignedOrders: any[], vehicleDetails: any): string {
+    // Generate the HTML content for the PDF
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Assigned Orders Report</title>
+          <style>
+            /* Your CSS styles here */
+          </style>
+        </head>
+        <body>
+          <h1>Assigned Orders Report</h1>
+          <p>Vehicle Number: ${vehicleDetails.vehicleNumber}</p>
+          <p>Vehicle Details:</p>
+          <ul>
+            <li>Driver Name: ${vehicleDetails.driverName}</li>
+            <li>Driver Contact: ${vehicleDetails.driverContact}</li>
+            <li>Capacity: ${vehicleDetails.vehicleCapacity}</li>
+          </ul>
+          <p>Assigned Orders:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Order Status</th>
+                <th>Weight (kg)</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${assignedOrders
+                .map(
+                  (order) => `
+                    <tr>
+                      <td>${order.orderId}</td>
+                      <td>${order.orderStatus}</td>
+                      <td>${order.orderWeight}</td>
+                      <td>${order.quantity}</td>
+                    </tr>
+                  `
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+
+    return htmlContent;
+  }
+
+  downloadPdf(htmlContent: string): void {
+    // const printWindow = window.open('', '', 'width=600,height=600')?? window;
+    const printWindow = window.open('', '')?? window; // full size
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+    printWindow.print();
+    // printWindow.open()
+    // printWindow.close();
+  }
+}

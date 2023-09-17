@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SchedularService, City, Driver, Order } from 'src/app/services/schedular.service';
-// import { PdfService } from 'src/app/services/pdf-service.service';
+import { PdfService } from 'src/app/services/pdf-service.service';
 @Component({
   selector: 'app-schedule-order',
   templateUrl: './schedule-order.component.html',
@@ -21,7 +21,7 @@ export class ScheduleOrderComponent {
   
   // assignedOrder: Order | undefined;
   constructor(public dataService: SchedularService,
-    // public pdfService : PdfService
+    public pdfService : PdfService
     ) {
     this.cities = this.dataService.getCities();
     this.vehicles = this.dataService.getDrivers();
@@ -159,6 +159,9 @@ export class ScheduleOrderComponent {
       this.onVehicleSelected();
       //to generate pdf
       // this.pdfService.generatePdf(this.assignedOrders, this.selectedVehicleData);
+      
+      // let html = this.pdfService.generateHtmlPdf(this.assignedOrders, this.selectedVehicleData);
+      // this.pdfService.downloadPdf(html);
     }
   }
   
