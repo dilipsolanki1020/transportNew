@@ -12,7 +12,5 @@ export class DashboardComponent implements OnInit {
   }
   barcodeValue: string = ''; // Initialize with an empty string
 
-  // updateBarcodeValue(event: any) {
-  //   this.barcodeValue = event.target.value;
-  // }
+  // 
 }

@@ -50,5 +50,17 @@ onSubmit(form: NgForm): void {
         console.error('API Error:', error);
       }
     );
+
+    // this.http.get('https://apiv3.imocha.io/v2/test', { headers, params })
+    // .subscribe(
+    //   (response) => {
+    //     // Handle the response from the API here
+    //     console.log('API Response:', response);
+    //   },
+    //   (error) => {
+    //     // Handle errors here
+    //     console.error('API Error:', error);
+    //   }
+    // );
 }
 }

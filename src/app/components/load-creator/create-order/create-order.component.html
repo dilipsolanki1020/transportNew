@@ -87,7 +87,24 @@
       <!-- Other form fields here -->
     <!-- </div>
     </div> -->
-      <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">Submit</button>
     </form>
   </div>
+
+  <div class="modal" [ngClass]="{'show': isModalOpen}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Creating Order</h4>
+        </div>
+        <div class="modal-body">
+          <p>Creating order...</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="closeModal()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 

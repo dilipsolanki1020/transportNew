@@ -31,7 +31,15 @@ export class CreateOrderComponent implements OnInit {
   consignmentwidth: string = '';
   city: string = '';
 
+
+  isSubmitting = false; 
+  isModalOpen = false;
   constructor(private customerData : CustomerDataService){}
+ 
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
   ngOnInit(): void {
     this.fetchCustomers();
   }
@@ -96,29 +104,69 @@ export class CreateOrderComponent implements OnInit {
   onSubmit(form: NgForm): void {
 
     if (this.orderForm.valid) {
-      const formData = {
-        customerName: this.selectedCustomer.name,
-        customerId:this.selectedCustomer.id,
-        customerAddress: this.selectedCustomerAddress,
-        customerContact: this.selectedCustomerContact,
-        receiverName: this.selectedReceiver.name,
-        receiverAddress: this.selectedReciverAddress,
-        reciverContact: this.selectedReciverContact,
-        city: this.city,
-        title: this.consignmentTitle,
-        weight: this.consignmentWeight,
-        length: this.consignmentLength,
-        width: this.consignmentwidth,
-        height:this.consignmentHeight,
-        quantity: this.consignmentQuantity
-        
-      };
+  this.isSubmitting = true;
+  this.isModalOpen = true;
 
-    const jsonData = JSON.stringify(formData);
-    console.log("before sending to api ",jsonData)
-    this.customerData.sendDataToApi(formData).subscribe(response => {
-      console.log('api response',response)
-    });
+    //   const formData = {
+    //     "CustomerId": 1,
+    //     "UserId": 101,
+    //     "Source": "New York",
+    //     "Destination": "Los Angeles",
+    //     "PackageType": 1,
+    //     "Size": 20.5,
+    //     "DimensionL": 30.0,
+    //     "DimensionB": 10.0,
+    //     "DimensionH": 15.0,
+    //     "Weight": 5.5,
+    //     "Status": 1,
+    //     "CreatedBy": 201,
+    //     "CreatedOn": "2023-09-06T10:30:00",
+    //     "ModifiedBy": null,
+    //     "ModifiedOn": null
+    // };
+
+
+    const formData = {
+      // customerName: this.selectedCustomer.name,
+      CustomerId:this.selectedCustomer.id,
+      UserId : 201,
+      Source: this.selectedCustomerAddress,
+      // customerContact: this.selectedCustomerContact,
+      // receiverName: this.selectedReceiver.name,
+      // Destination: this.selectedReciverAddress,
+      // reciverContact: this.selectedReciverContact,
+      Destination: this.city,
+      title: this.consignmentTitle,
+      Weight: this.consignmentWeight,
+      DimensionL: this.consignmentLength,
+      DimensionB: this.consignmentwidth,
+      DimensionH:this.consignmentHeight,
+      quantity: this.consignmentQuantity
+      
+    };
+
+
+
+
+    this.customerData.addOrder(formData).subscribe(
+      (response) => {
+        console.log('API response', response);
+        setTimeout(() => {
+          this.isModalOpen = false;
+        }, 1000);
+        // Optionally, handle success here and close the modal
+        // You can add code to close the modal here
+      },
+      (error) => {
+        console.error('API error', error);
+        // Optionally, handle errors here
+        this.isModalOpen = false;
+      },
+      () => {
+        // Enable the submit button
+        this.isSubmitting = false;
+      }
+    );
     }
     
   }

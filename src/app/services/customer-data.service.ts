@@ -27,14 +27,14 @@ export class CustomerDataService {
     return of(selectedReceiver ? [selectedReceiver] : []); // Return selected receiver or an empty array
   }
 
-  sendDataToApi(data: any): Observable<any> {
-    console.log("data before api call",data)
+  addOrder(data: any): Observable<any> {
+   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
   });
-    const url = `https://154a-103-151-185-76.ngrok.io/addorder`; // Adjust the URL for submitting data
+    const url = `https://transportsystemapi.azurewebsites.net/add/order`; // Adjust the URL for submitting data
     return this.http.post(url, data,{headers});
-    // return of({ success: true, message: 'Data submitted successfully' });
+
   }
 
 
