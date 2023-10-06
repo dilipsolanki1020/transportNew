@@ -1,0 +1,55 @@
+<div class="container mt-5">
+  <h1 class="text-center">Manage Orders</h1>
+  <div class="order-list">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search...">
+          <button class="btn btn-primary" (click)="searchOrders()">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2>Orders</h2>
+      <div class="accordion" id="orderAccordion">
+        <div *ngFor="let order of orders; let i = index" class="accordion-item">
+          <h2 class="accordion-header" id="heading{{ i }}">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + i">
+              Order #{{ order.orderId }} - {{ order.senderName }}
+            </button>
+          </h2>
+          <div [id]="'collapse' + i" class="accordion-collapse collapse" [ngClass]="{'show': selectedOrder === order}"
+            [attr.aria-labelledby]="'heading' +order.id" data-bs-parent="#orderAccordion">
+            <div class="card-body">
+              <p>Order Id: {{ order.orderId }}</p>
+              <p>Sender Name: {{ order.senderName }}</p>
+              <p>Sender Address: {{ order.senderAddress }}</p>
+              <p>Receiver Name: {{ order.receiverName }}</p>
+              <p>Receiver Address: {{ order.receiverAddress }}</p>
+              <p>City: {{ order.city }}</p>
+              <div *ngIf="selectedOrder === order">
+                <div class="form-group">
+                  <label>Consignment Weight:</label>
+                  <input [(ngModel)]="selectedOrder.weight" class="form-control" placeholder="Weight">
+                </div>
+                <button class="btn btn-primary save-button" (click)="saveOrderDetails()">Save</button>
+                <button class="btn btn-secondary cancel-button" (click)="clearSelectedOrder()">Cancel</button>
+              </div>
+              <div *ngIf="selectedOrder !== order">
+                <button class="btn btn-primary edit-button" (click)="showOrderDetails(order)">Edit</button>
+                <button class="btn btn-danger delete-button" (click)="deleteOrder()">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="pagination justify-content-center mt-4">
+      <button class="btn btn-primary" (click)="previousPage()">Previous</button>
+      <span class="mx-3">{{ currentPage }} / {{ totalPages }}</span>
+      <button class="btn btn-primary" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+</div>
