@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="confirmation-details">
+      <button class="btn btn-primary " (click)="onPrev()">Go Back Edit Details</button>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="text-center">Shipment Details</h3>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Type of Goods:</strong> {{ shipmentDetails.goodsType }}</p>
+              <p><strong>Quantity:</strong> {{ shipmentDetails.quantity }}</p>
+              <p><strong>Weight (kg):</strong> {{ shipmentDetails.weight }}</p>
+            </div>
+            <div class="col-6">
+              <p><strong>Dimensions (L x W x H):</strong> {{ shipmentDetails.dimensionsL }} x {{ shipmentDetails.dimensionsW }} x {{ shipmentDetails.dimensionsH }}</p>
+              <p><strong>Special Requirements:</strong> {{ shipmentDetails.specialRequirements }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="text-center">Costing Details</h3>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Packaging:</strong> {{ shipmentCosts.cost1 }}</p>
+              <p><strong>Hamali:</strong> {{ shipmentCosts.cost2 }}</p>
+              <p><strong>Handling Charges:</strong> {{ shipmentCosts.cost3 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="text-center">Sender Details</h3>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Name:</strong> {{ senderDetails.name }}</p>
+              <p><strong>Address1:</strong> {{ senderDetails.address1 }}</p>
+              <p><strong>Address2:</strong> {{ senderDetails.address2 }}</p>
+              <p><strong>City:</strong> {{ senderDetails.city }}</p>
+            </div>
+            <div class="col-6">
+              <p><strong>State:</strong> {{ senderDetails.state }}</p>
+              <p><strong>PinCode:</strong> {{ senderDetails.pincode }}</p>
+              <p><strong>Contact:</strong> {{ senderDetails.contact }}</p>
+              <p><strong>Email:</strong> {{ senderDetails.email }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="text-center">Receiver Details</h3>
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Name:</strong> {{ receiverDetails.name }}</p>
+              <p><strong>Address1:</strong> {{ receiverDetails.address1 }}</p>
+              <p><strong>Address2:</strong> {{ receiverDetails.address2 }}</p>
+              <p><strong>City:</strong> {{ receiverDetails.city }}</p>
+            </div>
+            <div class="col-6">
+              <p><strong>State:</strong> {{ receiverDetails.state }}</p>
+              <p><strong>PinCode:</strong> {{ receiverDetails.pincode }}</p>
+              <p><strong>Contact:</strong> {{ receiverDetails.contact }}</p>
+              <p><strong>Email:</strong> {{ receiverDetails.email }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Create Order
+    </button>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Final Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Please confirm all the details before submitting the order.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" id ="modal-btn" class="btn btn-primary" (click)="CreateOrder()">Create Order</button>
+        </div>
+      </div>
+    </div>
+  </div>

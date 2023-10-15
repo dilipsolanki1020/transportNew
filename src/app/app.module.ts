@@ -16,9 +16,10 @@ import { MarkDeliveredComponent } from './components/forwarder/mark-delivered/ma
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardMenuComponent } from './components/admin/dashboard-menu/dashboard-menu.component';
-import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
+// import { ManageOrderComponent } from './shipment/manage-order/manage-order.component';
 // import { NgxBarcode6Module } from 'ngx-barcode6';
-
+import { SharedModule } from './shared/shared.module';
+import { ShipmentModule } from './shipment/shipment.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,13 +35,17 @@ import { ManageOrderComponent } from './components/orders/manage-order/manage-or
     MarkDeliveredComponent,
     DashboardComponent,
     DashboardMenuComponent,
-    ManageOrderComponent
+    // ManageOrderComponent,
+    // ScheduleorderComponent,
+    
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ShipmentModule
     // NgxBarcode6Module
   ],
   providers: [],

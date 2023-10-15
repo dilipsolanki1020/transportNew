@@ -1,0 +1,57 @@
+/* Add your global CSS styles here */
+
+/* Container */
+.container {
+    margin-top: 20px;
+}
+
+/* Vehicle Selection */
+.vehicle-selection {
+    margin-bottom: 20px;
+}
+
+.vehicle-selection h3 {
+    font-size: 24px;
+}
+
+/* Assigned Orders */
+.assigned-orders {
+    margin-bottom: 20px;
+}
+
+.assigned-orders h3 {
+    font-size: 24px;
+}
+
+.card .order-info {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.form-select {
+    width: 100%;
+}
+
+/* Filter and Search */
+.filter-search {
+    margin-bottom: 20px;
+}
+
+.filter-search select,
+.filter-search input {
+    width: 100%;
+}
+
+/* Unassigned Orders */
+.unassigned-orders {
+    margin-bottom: 20px;
+}
+
+.unassigned-orders h3 {
+    font-size: 24px;
+}
+
+/* Create Schedule Button */
+.create-schedule button {
+    font-size: 18px;
+}

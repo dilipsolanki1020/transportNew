@@ -1,0 +1,144 @@
+<div class="container">
+    <div class="pb-2">
+    <button class="btn btn-primary  " (click)="onPrev()">Back to order Details</button>
+</div>
+    <div class="shipping-section">
+        <div clas="sender-div row " (click)="toggleRow(1)">
+            <h2 class="selectable-element cursor-pointer " [ngClass]="{'selected-element': shippingRow == 2}"> Sender
+            </h2>
+            <div *ngIf="shippingRow == 1">
+                <div class="row">
+                    <form class="details-form sender-details-form col">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="senderName">Name</label>
+                                <input type="text" class="form-control" id="senderName" [(ngModel)]="senderDetails.name"
+                                    name="senderName" placeholder="Sender Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="senderAddress1">Address1:</label>
+                            <input type="text" id="senderAddress1" class="form-control"
+                                [(ngModel)]="senderDetails.address1" name="senderAddress1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senderAddress2">Address2:</label>
+                            <input type="text" id="senderAddress2" class="form-control"
+                                [(ngModel)]="senderDetails.address2" name="senderAddress2" required>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="senderCity">City:</label>
+                                <input type="text" id="senderCity" class="form-control" [(ngModel)]="senderDetails.city"
+                                    name="senderCity" required>
+                            </div>
+                            <div class="col">
+                                <label for="senderState">State:</label>
+                                <select id="senderState" class="form-control" [(ngModel)]="senderDetails.state"
+                                    name="senderState" required>
+                                    <option selected value="">Select State</option>
+                                    <option *ngFor="let states of stateList" [value]="states">{{states}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="senderPinCode">PinCode:</label>
+                                <input type="text" id="senderPinCode" class="form-control"
+                                    [(ngModel)]="senderDetails.pincode" name="senderPinCode" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="senderConatct">Conatct:</label>
+                                <input type="text" id="senderConatct" class="form-control"
+                                    [(ngModel)]="senderDetails.contact" name="senderConatct" required>
+                            </div>
+                            <div class="col">
+                                <label for="senderEmail">Email:</label>
+                                <input type="text" id="senderEmail" class="form-control"
+                                    [(ngModel)]="senderDetails.email" name="senderEmail" required>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="details-list saved-senders-list col">
+                        <h2 class="section-title">Saved Senders</h2>
+                        <ul>
+                            <li *ngFor="let savedSender of savedSenders" (click)="selectSender(savedSender)">
+                                {{ savedSender.name }}
+                                {{ savedSender.contact }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="receiver-div row" (click)="toggleRow(2) ">
+            <h2 class="selectable-element cursor-pointer" [ngClass]="{'selected-element': shippingRow == 1}"> Receiver
+            </h2>
+            <div *ngIf="shippingRow == 2">
+                <div class="row">
+                    <form class="details-form receiver-details-form col">                      
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="receiverName">Name</label>
+                                <input type="text" class="form-control" id="receiverName"
+                                    [(ngModel)]="receiverDetails.name" name="receiverName" placeholder="Sender Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverAddress1">Address1:</label>
+                            <input type="text" id="receiverAddress1" class="form-control"
+                                [(ngModel)]="receiverDetails.address1" name="receiverAddress1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverAddress2">Address2:</label>
+                            <input type="text" id="receiverAddress2" class="form-control"
+                                [(ngModel)]="receiverDetails.address2" name="receiverAddress2" required>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="receiverCity">City:</label>
+                                <input type="text" id="receiverCity" class="form-control"
+                                    [(ngModel)]="receiverDetails.city" name="receiverCity" required>
+                            </div>
+                            <div class="col">
+                                <label for="receiverState">State:</label>
+                                <select id="receiverState" class="form-control" [(ngModel)]="receiverDetails.state"
+                                    name="receiverState" required>
+                                    <option selected value="">Select State</option>
+                                    <option *ngFor="let states of stateList" [value]="states">{{states}}</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="receiverPinCode">PinCode:</label>
+                                <input type="text" id="receiverPinCode" class="form-control"
+                                    [(ngModel)]="receiverDetails.pincode" name="receiverPinCode" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="receiverConatct">Conatct:</label>
+                                <input type="text" id="receiverConatct" class="form-control"
+                                    [(ngModel)]="receiverDetails.contact" name="receiverConatct" required>
+                            </div>
+                            <div class="col">
+                                <label for="receiverEmail">Email:</label>
+                                <input type="text" id="receiverEmail" class="form-control"
+                                    [(ngModel)]="receiverDetails.email" name="receiverEmail" required>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="details-list saved-receivers-list col">
+                        <h2 class="section-title">Saved Senders</h2>
+                        <ul>
+                            <li *ngFor="let savedReceiver of savedReceiver" (click)="selectReceiver(savedReceiver)">
+                                {{ savedReceiver.name }}
+                                {{ savedReceiver.contact }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button (click)="saveDetails()" class="btn btn-primary">Proceed For Costs</button>
+</div>

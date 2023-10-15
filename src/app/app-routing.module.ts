@@ -11,9 +11,29 @@ import { ScheduleOrderComponent } from './components/load-creator/schedule-order
 import { VerifyDeliveryComponent } from './components/load-scheduler/verify-delivery/verify-delivery.component';
 import { TrackOrderComponent } from './components/track-order/track-order.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
-import { ManageOrderComponent } from './components/orders/manage-order/manage-order.component';
-
+import { ManageOrdersComponent } from './shipment/manage-order/manage-order.component';
+import { AppComponent } from './app.component';
+import { CostCalculationComponent } from './shipment/create-order/cost-calculation/cost-calculation.component';
+import { OrderDetailsComponent } from './shipment/create-order/order-details/order-details.component';
+import { OrderSubmissionComponent } from './shipment/create-order/order-submission/order-submission.component';
+import { ShippingInfoComponent } from './shipment/create-order/shipping-info/shipping-info.component';
+import { ScheduleorderComponent } from './shipment/scheduleorder/scheduleorder.component';
 const routes: Routes = [
+  {
+    path: 'shipment',
+    component: AppComponent,
+    // canActivate: [AuthGuard], // Add authentication guard if needed
+    children: [
+      { path: 'create-order', component: OrderDetailsComponent },
+      { path: 'shippinginfo', component: ShippingInfoComponent },
+      { path: 'costing', component: CostCalculationComponent },
+      { path: 'order-submission', component: OrderSubmissionComponent },
+      { path: 'schedule-order', component: ScheduleorderComponent },
+      { path: 'manage-order', component: ManageOrdersComponent },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ]
+  },
+  
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'track-order', component: TrackOrderComponent },
@@ -29,7 +49,7 @@ const routes: Routes = [
       { path: 'manage-customers', component: ManageCustomersComponent },
       { path: 'schedule-order', component: ScheduleOrderComponent },
       { path: 'manage-drivers', component: ManageDriversComponent },
-      { path: 'manage-order', component: ManageOrderComponent },
+      // { path: 'manage-order', component: ManageOrderComponent },
       
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]

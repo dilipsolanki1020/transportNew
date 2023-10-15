@@ -1,0 +1,86 @@
+<div class="container">
+    <!-- Vehicle Selection -->
+    <div class="vehicle-selection">
+        <h3>Select a Vehicle:</h3>
+        <ul class="vehicle-list">
+            <li *ngFor="let vehicle of vehicles">
+                <label class="form-check-label">
+                    <input type="radio" name="selectedVehicle" [(ngModel)]="selectedVehicle" [value]="vehicle"
+                        class="form-check-input">
+                    {{ vehicle?.vehicleNumber }} - Capacity: {{ vehicle?.capacity }}
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Assigned Orders List -->
+    <div class="assigned-orders">
+        <h3>Assigned Orders:</h3>
+        <ul class="order-list">
+            <li *ngFor="let order of selectedVehicle?.assignedOrders; let i = index">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="order-info">{{ order.customerName }} - Priority: {{ order.priority }}</p>
+                        <select [(ngModel)]="selectedVehicle?.assignedOrders[i].deliveryType" class="form-select">
+                            <option value="Direct to Receiver">Direct to Receiver</option>
+                            <option value="Hub to Hub">Hub to Hub</option>
+                            <!-- Add more delivery types as needed -->
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li *ngFor="let order of temporarilyAssignedOrders; let i = index">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="order-info">{{ order.customerName }} - Priority: {{ order.priority }}</p>
+                        <select [(ngModel)]="temporarilyAssignedOrders[i].deliveryType" class="form-select">
+                            <option value="Direct to Receiver">Direct to Receiver</option>
+                            <option value="Hub to Hub">Hub to Hub</option>
+                            <!-- Add more delivery types as needed -->
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Filter and Search -->
+    <div class="filter-search mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <select [(ngModel)]="filterOption" class="form-select">
+                    <option value="all">All</option>
+                    <option value="priorityHigh">High Priority</option>
+                    <option value="priorityMedium">Medium Priority</option>
+                    <option value="priorityLow">Low Priority</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="text" [(ngModel)]="searchQuery" class="form-control" placeholder="Search Orders">
+            </div>
+        </div>
+    </div>
+
+    <!-- Unassigned Orders List -->
+    <div class="unassigned-orders">
+        <h3>Unassigned Orders:</h3>
+        <ul class="order-list">
+            <li *ngFor="let order of filteredUnassignedOrders">
+                <div class="card">
+                    <div class="card-body">
+                        <label class="form-check-label">
+                            <input type="checkbox" [(ngModel)]="order.selected" [disabled]="!selectedVehicle"
+                                class="form-check-input" (change)="assignOrder(order)">
+                            <p class="order-info">{{ order?.customerName }} - Priority: {{ order.priority }}</p>
+                        </label>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Create Schedule Button -->
+    <div class="create-schedule mt-3">
+        <button (click)="createSchedule()" class="btn btn-primary">Create Schedule</button>
+    </div>
+</div>

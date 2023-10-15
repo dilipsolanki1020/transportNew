@@ -1,0 +1,82 @@
+<div class="container">
+    <button class="btn btn-primary prev-button" (click)="onPrev()">Prev</button>
+    <div class="row">
+      <div class="col">
+        <div class="shipment-section">
+          <form (ngSubmit)="submitShipmentDetails()" class="shipment-form">
+            <div class="mb-3">
+              <label for="cost1" class="form-label">Shipping Charges:</label>
+              <input type="number" class="form-control" id="cost1" [(ngModel)]="shipmentCosts.ShipmentCost " name="cost1"
+                required (input)="updateFinalCost()">
+            </div>
+  
+            <div class="mb-3">
+              <label for="cost1" class="form-label">Packaging Charges:</label>
+              <input type="number" class="form-control" id="cost2" [(ngModel)]="shipmentCosts.PackagingCost " name="cost2"
+                required (input)="updateFinalCost()">
+            </div>
+  
+            <div class="mb-3">
+              <label for="cost4" class="form-label">Handling Charges:</label>
+              <input type="number" class="form-control" id="cost4" [(ngModel)]="shipmentCosts.HandelingCharge "
+                name="cost3" required (input)="updateFinalCost()">
+            </div>
+  
+            <div class="mb-3">
+              <label for="cost2" class="form-label">Hamali:</label>
+              <input type="number" class="form-control" id="cost3" [(ngModel)]="shipmentCosts.Hamali " name="cost3"
+                required (input)="updateFinalCost()">
+            </div>
+            <button type="submit" class="btn btn-success next-button">Next</button>
+          </form>
+        </div>
+      </div>
+      <div class="col">
+        <div class="costingSummery">
+          <form class="costingSummeryForm">
+            <div class="row">
+              <label class="form-label">Total Cost</label>
+              <input type="number" class="form-control" id="total-cost" [(ngModel)]="shipmentCosts.totalcost"
+                name="total-cost" (input)="updateFinalCost()">
+  
+            </div>
+  
+            <div class="row">
+              <label class="form-label">Discount</label>
+              <input type="number" class="form-control" id="discount" [(ngModel)]="shipmentCosts.discount"
+                name="discount-cost" (input)="updateFinalCost()">
+            </div>
+  
+            <div class="row">
+              <label class="form-label"> Advance Payment</label>
+              <input type="number" class="form-control" id="advance" [(ngModel)]="shipmentCosts.advance"
+                name="advance-cost" (input)="updateFinalCost()">
+            </div>
+  
+            <div class="row">
+              <label class="form-label">Final Cost</label>
+              <input type="number" class="form-control" id="final-cost" [(ngModel)]="shipmentCosts.finalcost"
+                name="final-cost">
+            </div>
+  
+            <div class="row">
+              <label for="paymentTypes">Payment Type:</label>
+              <select id="paymentTypes" class="form-control" (change)="onPaymentTypeSelected($event)"
+                [(ngModel)]="shipmentCosts.paymentType" name="paymentType" required>
+                <option value="">Select Type of Payment</option>
+                <option *ngFor="let goods of paymentTypes" [value]="goods">{{goods}}</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="paymentMode">Payment Mode:</label>
+              <select id="paymentMode" class="form-control" (change)="onPaymentModeSelected($event)"
+                [(ngModel)]="shipmentCosts.paymentMode" name="paymentMode" required>
+                <option value="">Select Mode of Payment</option>
+                <option *ngFor="let goods of paymentModes" [value]="goods">{{goods}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
