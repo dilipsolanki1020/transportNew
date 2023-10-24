@@ -20,9 +20,9 @@
           <h3 class="text-center">Costing Details</h3>
           <div class="row">
             <div class="col-6">
-              <p><strong>Packaging:</strong> {{ shipmentCosts.cost1 }}</p>
-              <p><strong>Hamali:</strong> {{ shipmentCosts.cost2 }}</p>
-              <p><strong>Handling Charges:</strong> {{ shipmentCosts.cost3 }}</p>
+              <p><strong>Packaging:</strong> {{ shipmentCosts.PackagingCost }}</p>
+              <p><strong>Hamali:</strong> {{ shipmentCosts.Hamali }}</p>
+              <p><strong>Handling Charges:</strong> {{ shipmentCosts.HandelingCharge }}</p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
       </div>
     </div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="CreateOrder()">
       Create Order
     </button>
   </div>

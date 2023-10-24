@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient ,HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 // import {HttpClient} from '@angular/common/http'
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,6 @@ export class OrdercreationService {
   public receiverDetails: any = {
     name: '',
     address: ''
-    // Add more sender details properties as needed
   };
 
   public savedReciver: any[] = [
@@ -68,9 +67,24 @@ export class OrdercreationService {
     advance: 0,
     finalcost: 0
   }
+  orderData: any = {}
 
 
   constructor(private http: HttpClient) { }
+  
+  private orderConfirmedSubject = new Subject<void>();
+
+  orderConfirmed$ = this.orderConfirmedSubject.asObservable();
+
+  // ... other methods and properties in your service
+
+  confirmOrderCreation() {
+    // Logic to save the order in the backend
+    // ...
+
+    // Notify subscribers that a new order is confirmed and should be saved
+    this.orderConfirmedSubject.next();
+  }
 
   addOrder(data: any): Observable<any> {
    

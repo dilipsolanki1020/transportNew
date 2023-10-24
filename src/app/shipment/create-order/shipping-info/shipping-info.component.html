@@ -1,10 +1,10 @@
 <div class="container">
     <div class="pb-2">
-    <button class="btn btn-primary  " (click)="onPrev()">Back to order Details</button>
-</div>
+        <button class="btn btn-primary" (click)="onPrev()">Back to order Details</button>
+    </div>
     <div class="shipping-section">
-        <div clas="sender-div row " (click)="toggleRow(1)">
-            <h2 class="selectable-element cursor-pointer " [ngClass]="{'selected-element': shippingRow == 2}"> Sender
+        <div class="sender-div row" (click)="toggleRow(1)">
+            <h2 class="selectable-element cursor-pointer" [ngClass]="{'selected-element': shippingRow == 1}"> Sender
             </h2>
             <div *ngIf="shippingRow == 1">
                 <div class="row">
@@ -48,9 +48,9 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="senderConatct">Conatct:</label>
-                                <input type="text" id="senderConatct" class="form-control"
-                                    [(ngModel)]="senderDetails.contact" name="senderConatct" required>
+                                <label for="senderContact">Contact:</label>
+                                <input type="text" id="senderContact" class="form-control"
+                                    [(ngModel)]="senderDetails.contact" name="senderContact" required>
                             </div>
                             <div class="col">
                                 <label for="senderEmail">Email:</label>
@@ -71,17 +71,17 @@
                 </div>
             </div>
         </div>
-        <div class="receiver-div row" (click)="toggleRow(2) ">
-            <h2 class="selectable-element cursor-pointer" [ngClass]="{'selected-element': shippingRow == 1}"> Receiver
+        <div class="receiver-div row" (click)="toggleRow(2)">
+            <h2 class="selectable-element cursor-pointer" [ngClass]="{'selected-element': shippingRow == 2}"> Receiver
             </h2>
             <div *ngIf="shippingRow == 2">
                 <div class="row">
-                    <form class="details-form receiver-details-form col">                      
+                    <form class="details-form receiver-details-form col">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="receiverName">Name</label>
                                 <input type="text" class="form-control" id="receiverName"
-                                    [(ngModel)]="receiverDetails.name" name="receiverName" placeholder="Sender Name">
+                                    [(ngModel)]="receiverDetails.name" name="receiverName" placeholder="Receiver Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,9 +116,9 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="receiverConatct">Conatct:</label>
-                                <input type="text" id="receiverConatct" class="form-control"
-                                    [(ngModel)]="receiverDetails.contact" name="receiverConatct" required>
+                                <label for="receiverContact">Contact:</label>
+                                <input type="text" id="receiverContact" class="form-control"
+                                    [(ngModel)]="receiverDetails.contact" name="receiverContact" required>
                             </div>
                             <div class="col">
                                 <label for="receiverEmail">Email:</label>
@@ -128,7 +128,7 @@
                         </div>
                     </form>
                     <div class="details-list saved-receivers-list col">
-                        <h2 class="section-title">Saved Senders</h2>
+                        <h2 class="section-title">Saved Receivers</h2>
                         <ul>
                             <li *ngFor="let savedReceiver of savedReceiver" (click)="selectReceiver(savedReceiver)">
                                 {{ savedReceiver.name }}
@@ -140,5 +140,7 @@
             </div>
         </div>
     </div>
-    <button (click)="saveDetails()" class="btn btn-primary">Proceed For Costs</button>
+    <div>
+        <button (click)="saveDetails()" class="btn btn-primary p-10">Proceed For Costs</button>
+    </div>
 </div>

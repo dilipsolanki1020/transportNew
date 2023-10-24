@@ -19,20 +19,20 @@ import { OrderSubmissionComponent } from './shipment/create-order/order-submissi
 import { ShippingInfoComponent } from './shipment/create-order/shipping-info/shipping-info.component';
 import { ScheduleorderComponent } from './shipment/scheduleorder/scheduleorder.component';
 const routes: Routes = [
-  {
-    path: 'shipment',
-    component: AppComponent,
-    // canActivate: [AuthGuard], // Add authentication guard if needed
-    children: [
-      { path: 'create-order', component: OrderDetailsComponent },
-      { path: 'shippinginfo', component: ShippingInfoComponent },
-      { path: 'costing', component: CostCalculationComponent },
-      { path: 'order-submission', component: OrderSubmissionComponent },
-      { path: 'schedule-order', component: ScheduleorderComponent },
-      { path: 'manage-order', component: ManageOrdersComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    ]
-  },
+  // {
+  //   path: 'shipment',
+  //   component: AppComponent,
+  //   // canActivate: [AuthGuard], // Add authentication guard if needed
+  //   children: [
+  //     { path: 'create-order', component: OrderDetailsComponent },
+  //     { path: 'shippinginfo', component: ShippingInfoComponent },
+  //     { path: 'costing', component: CostCalculationComponent },
+  //     { path: 'order-submission', component: OrderSubmissionComponent },
+  //     { path: 'schedule-order', component: ScheduleorderComponent },
+  //     { path: 'manage-order', component: ManageOrdersComponent },
+  //     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  //   ]
+  // },
   
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -45,10 +45,16 @@ const routes: Routes = [
     component: DashboardComponent,
     // canActivate: [AuthGuard], // Add authentication guard if needed
     children: [
-      { path: 'create-order', component: CreateOrderComponent },
-      { path: 'manage-customers', component: ManageCustomersComponent },
+      { path: 'create-order', component: OrderDetailsComponent },
+      { path: 'shippinginfo', component: ShippingInfoComponent },
+      { path: 'costing', component: CostCalculationComponent },
+      { path: 'order-submission', component: OrderSubmissionComponent },
+      // { path: 'schedule-order', component: ScheduleorderComponent },
+      { path: 'manage-order', component: ManageOrdersComponent },
+      // { path: 'create-order', component: CreateOrderComponent },
+      // { path: 'manage-customers', component: ManageCustomersComponent },
       { path: 'schedule-order', component: ScheduleOrderComponent },
-      { path: 'manage-drivers', component: ManageDriversComponent },
+      // { path: 'manage-drivers', component: ManageDriversComponent },
       // { path: 'manage-order', component: ManageOrderComponent },
       
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

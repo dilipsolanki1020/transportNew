@@ -1,0 +1,44 @@
+export interface Order {
+    AdvancePayment?: number;
+    DimensionB?: string;
+    DimensionH?: string;
+    DimensionL?: string;
+    Discount?: number;
+    FinalAmount?: number;
+    Hamali?: number;
+    HandelingCharge?: number;
+    InoviceNumber?: string;
+    OrderId?: number;
+    PackageType?: string;
+    PackagingCost?: number;
+    PaymentMode?: string;
+    PaymentType?: string;
+    ReceiverCustomerId?: number;
+    RecieverAddress1?: string;
+    RecieverAddress2?: string;
+    RecieverCity?: string;
+    RecieverContact1?: number;
+    RecieverContact2?: number;
+    RecieverEmail?: string;
+    RecieverName?: string;
+    RecieverPIN?: string;
+    RecieverState?: string;
+    Remarks?: string;
+    RevieverId?: number;
+    SenderAddress1?: string;
+    SenderAddress2?: string;
+    SenderCity?: string;
+    SenderContact1?: number;
+    SenderContact2?: number;
+    SenderCustomerId?: number;
+    SenderEmail?: string;
+    SenderId?: number;
+    SenderName?: string;
+    SenderPIN?: string;
+    SenderState?: string;
+    ShipmentCost?: number;
+    Size?: number;
+    UserId?: number;
+    Weight?: number;
+  }
+  

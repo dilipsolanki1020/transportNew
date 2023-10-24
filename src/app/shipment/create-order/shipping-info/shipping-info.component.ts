@@ -38,14 +38,14 @@ export class ShippingInfoComponent implements OnInit{
   }
  
   onPrev(){
-    this.router.navigate(['/shipment/create-order'])
+    this.router.navigate(['/dashboard/create-order'])
   }
 
   // Function to handle form submission for saving a sender
   saveDetails() {
     this.orderDetailsService.senderDetails = this.senderDetails;
     this.orderDetailsService.receiverDetails = this.receiverDetails;
-    this.router.navigate(['/shipment/costing'])
+    this.router.navigate(['/dashboard/costing'])
   }
 
   // Function to select a sender from the list

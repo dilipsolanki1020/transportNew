@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log("dashboard oninit")
+   
   }
   barcodeValue: string = ''; // Initialize with an empty string
 

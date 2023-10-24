@@ -12,7 +12,7 @@ export class OrderDetailsComponent implements OnInit{
   // Define a property to hold the shipment details
   shipmentDetails: any = {
     goodsType: '',          // Initialize with empty values
-    weight: 0,              // Initialize with zero
+    // weight: 0,              // Initialize with zero
     dimensionsL: '',
     dimensionsW: '',
     dimensionsH: '',
@@ -28,7 +28,6 @@ export class OrderDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.typesOfGoods = this.orderDetailsService.typesOfGoods;
     this.shipmentDetails = this.orderDetailsService.shipmentDetails
-    console.log("ngongint",this.shipmentDetails)
   }
 
   // Function to handle form submission
@@ -36,7 +35,8 @@ export class OrderDetailsComponent implements OnInit{
     // Store the entered shipment details in the service
 
     this.orderDetailsService.shipmentDetails = this.shipmentDetails;
-    this.router.navigate(['/shipment/shippinginfo'])
+    this.router.navigate(['/dashboard/shippinginfo'])
+    console.log(this.orderDetailsService.shipmentDetails )
   }
   onTypeSelected(event:any){
     

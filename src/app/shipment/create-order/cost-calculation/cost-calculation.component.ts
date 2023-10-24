@@ -40,7 +40,7 @@ this.shipmentCosts = this.ordercreationservice.shipmentcost;
   submitShipmentDetails(){
     this.ordercreationservice.shipmentcost = this.shipmentCosts ;
     //  this.ordercreationservice.costingSummery = this.costingSummery ;
-    this.router.navigate(['/shipment/order-submission'])
+    this.router.navigate(['/dashboard/order-submission'])
   }
   
 
@@ -54,7 +54,7 @@ this.shipmentCosts = this.ordercreationservice.shipmentcost;
   onPrev(){
      this.ordercreationservice.shipmentcost = this.shipmentCosts ;
     //  this.ordercreationservice.shipmentCost = this.shipmentCosts ;
-    this.router.navigate(['/shipment/shippinginfo'])
+    this.router.navigate(['/dashboard/shippinginfo'])
   }
 
 
