@@ -1,8 +1,20 @@
 <div class="container mt-5">
+  <form (ngSubmit)="showOrderDetail()">
+    <div class="input-group">
+      <input type="text" class="form-control" id="orderId" [(ngModel)]="orderID" placeholder="Enter Order ID" name="orderId">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Show Order Details</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container mt-5">
   <button class="btn-primary" (click)="navigate()">Create New Order</button>
   <h1 class="text-center">Manage Orders</h1>
+
   <div class="order-list">
-    <!-- Search Section -->
+
     <div class="row mb-3">
       <div class="col-md-6">
         <div class="input-group">
@@ -12,7 +24,6 @@
       </div>
     </div>
 
-    
     <div *ngIf="orders && orders.length > 0">
       <div *ngFor="let order of orders; let i = index">
         <div class="card mb-3">
@@ -28,14 +39,6 @@
             <p>Receiver Name: {{ order.RecieverName }}</p>
             <p>Receiver Address: {{ order.RecieverAddress1 }}</p>
             <p>City: {{ order.RecieverCity }}</p>
-            <!-- <div *ngIf="order.editing">
-              <div class="form-group">
-                <label>Consignment Weight:</label>
-                <input [(ngModel)]="order.weight" class="form-control" placeholder="Weight">
-              </div>
-              <button class="btn btn-primary save-button" (click)="saveOrderDetails(order)">Save</button>
-              <button class="btn btn-secondary cancel-button" (click)="cancelEdit(order)">Cancel</button>
-            </div> -->
             <div *ngIf="!order.editing">
               <button class="btn btn-primary edit-button" (click)="editOrder(order)">Edit</button>
               <button class="btn btn-danger delete-button" (click)="deleteOrder(order)">Delete</button>
@@ -44,14 +47,27 @@
         </div>
       </div>
     </div>
-    
+
     <div *ngIf="!orders || orders.length === 0" class="alert alert-info">No orders found.</div>
 
-    <!-- Pagination Section -->
     <div class="pagination justify-content-center mt-4">
       <button class="btn btn-primary" (click)="previousPage()">Previous</button>
       <span class="mx-3">{{ currentPage }} / {{ totalPages }}</span>
       <button class="btn btn-primary" (click)="nextPage()">Next</button>
     </div>
+  </div>
+</div>
+
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeOrderModal()">&times;</span>
+    <h3>Order Details</h3>
+    <p><strong>Order ID:</strong> {{ orderDetails?.orderId }}</p>
+    <p><strong>Sender:</strong> {{ orderDetails?.sender }}</p>
+    <p><strong>Receiver:</strong> {{ orderDetails?.receiver }}</p>
+    <p><strong>Origin Hub:</strong> {{ orderDetails?.originHub }}</p>
+    <p><strong>Destination Hub:</strong> {{ orderDetails?.destinationHub }}</p>
+    <p><strong>Delivery Date:</strong> {{ orderDetails?.deliveryDate }}</p>
+    <button (click)="confirmOrder()">Confirm Order</button>
   </div>
 </div>

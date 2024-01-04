@@ -16,13 +16,29 @@ export class ManageOrdersComponent  implements OnInit {
   itemsPerPage: number = 10;
   currentPage: number = 1;
   totalPages: number = 1;
+
+  orderID!: string;
+  orderDetails: any;
+  showOrderModal = true;
+  
 constructor(
 private manageorder:ManagerorderService,
 private router : Router
-){}
+){
+  this.orderDetails = {};
+}
   ngOnInit(): void {
     this.orders = this.manageorder.getOrders();
     console.log(this.orders)
+    this.orderDetails = {
+      orderId: '12345',
+      sender: 'John Doe',
+      receiver: 'Jane Smith',
+      originHub: 'Hub1',
+      destinationHub: 'Hub2',
+      deliveryDate: '2023-11-01',
+      // Add more order details here
+    };
     this.filteredOrders = [...this.orders];
     this.totalPages = Math.ceil(this.orders.length / this.itemsPerPage);
     this.updateFilteredOrders();
@@ -101,6 +117,37 @@ private router : Router
 
   navigate(){
     this.router.navigate(['/shipment/create-order'])
+  }
+
+  showOrderDetail() {
+    console.log("show details")
+    // Simulate fetching order details from your service using the orderID
+    // Replace this with an actual service call in your implementation
+    this.orderDetails = {
+      orderId: '12345',
+      sender: 'John Doe',
+      receiver: 'Jane Smith',
+      originHub: 'Hub1',
+      destinationHub: 'Hub2',
+      deliveryDate: '2023-11-01',
+      // Add more order details here
+    };
+
+    // Display the order details in the modal
+    this.showOrderModal = true;
+  }
+
+  closeOrderModal() {
+    // Close the order details modal
+    this.showOrderModal = false;
+  }
+
+  confirmOrder() {
+    // Add order to OrderService (simulated action)
+    // console.log('Order confirmed and added to OrderService:', this.orderDetails);
+
+    // Close the order details modal after confirmation
+    this.closeOrderModal();
   }
 
 }
